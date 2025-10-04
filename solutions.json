@@ -1,0 +1,20 @@
+[
+  {
+    "Problem_Tags": "heat_island, no_trees",
+    "Keywords": ["heat", "hot", "trees", "shade", "asphalt", "calor", "árvores", "sombra"],
+    "Solution_Title": "Urban Reforestation",
+    "Solution_Details_EN": "Planting native, wide-canopy trees along sidewalks and in public spaces. Trees provide shade, cool the air through evapotranspiration, and improve air quality. A well-planned tree canopy can reduce surface temperatures significantly."
+  },
+  {
+    "Problem_Tags": "air_pollution, heavy_traffic",
+    "Keywords": ["pollution", "traffic", "air", "fumes", "smoke", "poluição", "tráfego", "fumaça"],
+    "Solution_Title": "Low Emission Zones (LEZ)",
+    "Solution_Details_EN": "A designated area where access for the most polluting vehicles is restricted or charged. This encourages the use of public transport, cycling, and cleaner vehicles, directly reducing local air pollutants like NO₂ and particulate matter."
+  },
+  {
+    "Problem_Tags": "flood_risk, poor_drainage",
+    "Keywords": ["flood", "water", "rain", "drainage", "alagamento", "chuva", "drenagem"],
+    "Solution_Title": "Rain Gardens and Bioswales",
+    "Solution_Details_EN": "Depressed areas in the landscape that collect rainwater from roofs, driveways, and streets. Filled with native plants, they filter pollutants and allow water to slowly soak into the ground, reducing runoff and preventing local flooding."
+  }
+]
