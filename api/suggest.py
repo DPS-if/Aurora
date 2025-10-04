@@ -46,7 +46,8 @@ class handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         user_problem_text = ""
-        try
+        ai_answer = ""
+        try:
             # PLANO A: Usar as IAs para raciocinar com base na fonte
             print("INFO: Initiating Plan A with external APIs.")
             content_length = int(self.headers['Content-Length'])
@@ -110,7 +111,12 @@ class handler(BaseHTTPRequestHandler):
         except Exception as e:
             # SE O PLANO A FALHAR, EXECUTE O PLANO B
             print(f"ERROR in Plan A: {e}")
-            # ... (código do Plano B continua igual) ...
+            script_dir = os.path.dirname(__file__)
+            json_path = os.path.join(script_dir, '..', 'solutions.json')
+            with open(json_path, 'r', encoding='utf-8') as f:
+                solutions_data = json.load(f)
+            solutions_df = pd.DataFrame(solutions_data)
+            ai_answer = run_fallback_system(user_problem_text, solutions_df)
 
         # Envia a resposta final
         self.send_response(200)
