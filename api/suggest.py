@@ -3,39 +3,38 @@ import json
 import pandas as pd
 import google.generativeai as genai
 from http.server import BaseHTTPRequestHandler
-from transformers import pipeline
+import requests # Importamos a nova biblioteca para "ligar" para a API
 
-# PLANO B: Nosso "Motor de Emergência" feito do zero
+# URL da API de Inferência do Hugging Face para o modelo que usamos
+HF_API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
+
+# PLANO B: Nosso "Motor de Emergência" (continua igual)
 def run_fallback_system(problem_text, solutions_df):
+    # ... (o código do Plano B continua exatamente o mesmo de antes) ...
     print("WARNING: External APIs failed. Activating Fallback System.")
     problem_text_lower = problem_text.lower()
     best_match = None
     highest_score = 0
-    
     for index, solution in solutions_df.iterrows():
         score = 0
         for keyword in solution.get('Keywords', []):
             if keyword in problem_text_lower:
                 score += 1
-        
         if score > highest_score:
             highest_score = score
             best_match = solution
-            
     if best_match is not None:
         title = best_match['Solution_Title']
         details = best_match['Solution_Details_EN']
         ai_answer = f"Based on your report, a potential solution is **{title}**. \n\n**Details:** {details} \n\n*(This is a preliminary analysis based on keywords. For a more detailed suggestion, please try again later.)*"
     else:
         ai_answer = "We received your report, but couldn't determine a specific solution at this moment. Our team will analyze it manually. Thank you for your contribution."
-        
     return ai_answer
 
 # Classe principal que a Vercel vai usar
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         user_problem_text = ""
-        ai_answer = ""
         try:
             # PLANO A: Tentar usar as IAs externas de alta qualidade
             print("INFO: Initiating Plan A with external APIs.")
@@ -47,7 +46,6 @@ class handler(BaseHTTPRequestHandler):
             GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
             HF_TOKEN = os.environ.get('HUGGING_FACE_TOKEN')
             
-            # Validação crucial das chaves
             if not GEMINI_API_KEY or not HF_TOKEN:
                 raise ValueError("API keys are not configured in Vercel Environment Variables.")
                 
@@ -55,15 +53,29 @@ class handler(BaseHTTPRequestHandler):
             
             script_dir = os.path.dirname(__file__)
             json_path = os.path.join(script_dir, '..', 'solutions.json')
-            with open(json_path, 'r') as f:
+            with open(json_path, 'r', encoding='utf-8') as f:
                 solutions_data = json.load(f)
             solutions_df = pd.DataFrame(solutions_data)
             
+            # =================================================================
+            # <<< AQUI ESTÁ A MUDANÇA: USANDO A API DE INFERÊNCIA >>>
+            # =================================================================
+            print("INFO: Classifying text using Hugging Face Inference API...")
             problem_labels = solutions_df['Problem_Tags'].tolist()
-            classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli", token=HF_TOKEN)
-            classification_result = classifier(user_problem_text, candidate_labels=problem_labels)
-            detected_problem = classification_result['labels'][0]
+            headers = {"Authorization": f"Bearer {HF_TOKEN}"}
+            payload = {
+                "inputs": user_problem_text,
+                "parameters": {"candidate_labels": problem_labels},
+            }
             
+            response = requests.post(HF_API_URL, headers=headers, json=payload)
+            response.raise_for_status() # Lança um erro se a API falhar
+            classification_result = response.json()
+            
+            detected_problem = classification_result['labels'][0]
+            print(f"✅ [HF API] Problema detectado: {detected_problem}")
+
+            # O resto do código para encontrar a solução e chamar o Gemini continua igual
             best_solution = solutions_df[solutions_df['Problem_Tags'] == detected_problem].iloc[0]
             
             final_prompt = f"""Act as an expert urban planner. A citizen reported: "{user_problem_text}". The primary issue is '{best_solution['Solution_Title']}'. Your task: Write a constructive response in English. Explain the solution '{best_solution['Solution_Title']}' using these details: "{best_solution['Solution_Details_EN']}". Suggest a simple next step. Keep it concise."""
@@ -76,14 +88,14 @@ class handler(BaseHTTPRequestHandler):
             print(f"ERROR in Plan A: {e}")
             script_dir = os.path.dirname(__file__)
             json_path = os.path.join(script_dir, '..', 'solutions.json')
-            with open(json_path, 'r') as f:
+            with open(json_path, 'r', encoding='utf-8') as f:
                 solutions_data = json.load(f)
             solutions_df = pd.DataFrame(solutions_data)
             ai_answer = run_fallback_system(user_problem_text, solutions_df)
 
         # Envia a resposta final
         self.send_response(200)
-        self.send_header('Content-type', 'application/json')
+        self.send_header('Content-type', 'application/json; charset=utf-8')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         response = json.dumps({'solution': ai_answer})
