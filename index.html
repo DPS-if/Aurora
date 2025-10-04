@@ -26,16 +26,9 @@
     .modal-overlay.active .modal-content { transform: scale(1); }
     .modal-close-btn { position: absolute; top: 1rem; right: 1rem; font-size: 2rem; font-weight: bold; color: #9ca3af; background: none; border: none; cursor: pointer; line-height: 1; }
     .modal-close-btn:hover { color: #374151; }
-    .modal-title { font-size: 1.5rem; font-weight: 700; color: #1e293b; }
-    .modal-location { margin-top: 0.25rem; font-size: 1rem; font-weight: 600; color: #2563eb; }
-    .modal-divider { margin: 1rem 0; height: 1px; background-color: #e5e7eb; }
-    .modal-subtitle { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; }
-    .modal-subtitle.solution { color: #16a34a; }
-    .modal-text { margin-top: 0.5rem; font-size: 1rem; color: #475569; }
-    .modal-data-display { margin-top: 0.75rem; font-size: 1.5rem; font-weight: 700; color: #1e293b; background-color: #f3f4f6; padding: 0.75rem; border-radius: 0.375rem; display: inline-block; }
     
-    /* Estilo para o modal da IA */
-    #ai-modal-content-area { min-height: 150px; }
+    /* Estilos do Modal da IA */
+    #ai-modal-content-area { min-height: 150px; text-align: center; }
     #ai-modal-content-area h3 { font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem; }
     #ai-modal-content-area p { font-size: 1rem; color: #475569; line-height: 1.6; }
     #ai-modal-content-area strong, #ai-modal-content-area b { font-weight: 600; color: #1e293b; }
@@ -45,9 +38,76 @@
 </head>
 <body class="bg-white">
 
-  <nav class="sticky top-0 z-50 bg-white bg-opacity-90 backdrop-blur-md shadow-sm"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="flex items-center justify-between h-16"><div class="flex-shrink-0"><a href="#" class="text-2xl font-bold text-blue-600">UrbeVerde</a></div><div class="hidden md:block"><div class="ml-10 flex items-baseline space-x-4"><a href="#mapa" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Mapa Interativo</a><a href="#analise" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Análise de Dados</a><a href="#feedback" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Participação Cidadã</a></div></div></div></div></nav><header class="bg-gray-50"><div class="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center"><h1 class="text-4xl font-bold text-slate-800 sm:text-5xl lg:text-6xl">Insights Visuais para Cidades Resilientes</h1><p class="mt-6 max-w-2xl mx-auto text-lg text-slate-600">Utilizando dados de observação da Terra da NASA para transformar o planejamento urbano e criar um futuro mais verde e sustentável.</p></div></header><section id="mapa" class="py-20"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center"><h2 class="text-3xl font-bold text-slate-800">Mapa de Diagnóstico Ambiental</h2><p class="mt-4 text-lg text-slate-600">Selecione um indicador e clique em um ponto no mapa para uma análise detalhada.</p></div><div id="layer-switcher" class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"><div id="air-selector" class="layer-selector active"><svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75a.75.75 0 01.75.75v.01c0 .414-.336.75-.75.75a.75.75 0 01-.75-.75V4.5a.75.75 0 01.75-.75zM12 15a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5a.75.75 0 01.75-.75zM8.25 12a.75.75 0 01.75.75v.01c0 .414-.336.75-.75.75a.75.75 0 01-.75-.75v-.01a.75.75 0 01.75-.75zM15.75 12a.75.75 0 01.75.75v.01c0 .414-.336.75-.75.75a.75.75 0 01-.75-.75v-.01a.75.75 0 01.75-.75zM4.5 12a.75.75 0 01.75.75v.01c0 .414-.336.75-.75.75a.75.75 0 01-.75-.75V12a.75.75 0 01.75-.75zM19.5 12a.75.75 0 01.75.75v.01c0 .414-.336.75-.75.75a.75.75 0 01-.75-.75v-.01a.75.75 0 01.75-.75z" /></svg><div><h3>Poluição do Ar</h3><p>Níveis de NO₂</p></div></div><div id="water-selector" class="layer-selector"><svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25c-5.525 0-10 4.475-10 10s4.475 10 10 10 10-4.475 10-10-4.475-10-10-10zM9 9l.01.01M12 9l.01.01M15 9l.01.01M9 12l.01.01M12 12l.01.01M15 12l.01.01M9 15l.01.01M12 15l.01.01M15 15l.01.01" /></svg><div><h3>Qualidade da Água</h3><p>Turbidez e Algas</p></div></div><div id="heat-selector" class="layer-selector"><svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg><div><h3>Ilhas de Calor</h3><p>Temperatura de Superfície</p></div></div></div><div class="mt-10 bg-white p-2 rounded-xl shadow-2xl"><div id="map" class="w-full rounded-lg"></div></div></div></section><section id="analise" class="py-20 bg-gray-50"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center"><h2 class="text-3xl font-bold text-slate-800">Análise Comparativa de Dados</h2><p class="mt-4 text-lg text-slate-600">Compare os indicadores entre as diferentes regiões analisadas.</p></div><div class="mt-10 bg-white p-6 rounded-xl shadow-lg"><canvas id="myChart"></canvas></div></div></section><section id="feedback" class="py-20"><div class="max-w-3xl mx-auto text-center"><h2 class="text-3xl font-bold text-slate-800">Participe com a Aurora</h2><p class="mt-4 text-lg text-slate-600">Seu conhecimento local é essencial. Descreva um problema no seu bairro e nossa IA Aurora irá analisá-lo e sugerir uma solução.</p></div><div class="mt-10 max-w-xl mx-auto"><div class="bg-white p-8 rounded-xl shadow-lg"><form id="feedbackForm" class="space-y-6"><div><label for="name" class="text-sm font-medium text-gray-700">Seu Nome</label><input type="text" id="name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required></div><div><label for="neighborhood" class="text-sm font-medium text-gray-700">Seu Bairro</label><input type="text" id="neighborhood" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required></div><div><label for="issue-description" class="text-sm font-medium text-gray-700">Descreva o Problema Ambiental</label><textarea id="issue-description" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: Minha rua é muito quente e não tem árvores." required></textarea></div><button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Analisar com a IA</button></form></div></div></section><footer class="bg-slate-800 text-white"><div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center"><p>Plataforma UrbeVerde | IA Aurora</p><p class="text-sm text-slate-400 mt-2">Dados processados a partir de fontes como NASA Earthdata e analisados com Google Gemini e Hugging Face.</p></div></footer>
+  <nav class="sticky top-0 z-50 bg-white bg-opacity-90 backdrop-blur-md shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex-shrink-0">
+          <a href="#" class="text-2xl font-bold text-blue-600">UrbeVerde</a>
+        </div>
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-baseline space-x-4">
+            <a href="#mapa" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Mapa Interativo</a>
+            <a href="#analise" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Análise de Dados</a>
+            <a href="#feedback" class="text-gray-500 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Participação Cidadã</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-  <div id="analysis-modal-overlay" class="modal-overlay"><div class="modal-content"><button id="close-modal-btn" class="modal-close-btn">&times;</button><h3 id="modal-title" class="modal-title">Análise do Ponto</h3><p id="modal-location" class="modal-location">Localização</p><div class="modal-divider"></div><div><h4 class="modal-subtitle">Diagnóstico</h4><p id="modal-problem" class="modal-text">Descrição do problema.</p><p id="modal-data" class="modal-data-display">Valor Medido</p></div><div class="mt-6"><h4 class="modal-subtitle solution">Solução Proposta</h4><p id="modal-solution" class="modal-text">Ações recomendadas.</p></div></div></div>
+  <header class="bg-gray-50">
+    <div class="max-w-7xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl font-bold text-slate-800 sm:text-5xl lg:text-6xl">Insights Visuais para Cidades Resilientes</h1>
+      <p class="mt-6 max-w-2xl mx-auto text-lg text-slate-600">Utilizando dados de observação da Terra da NASA para transformar o planeamento urbano e criar um futuro mais verde e sustentável.</p>
+    </div>
+  </header>
+
+  <section id="mapa" class="py-20">
+    </section>
+
+  <section id="analise" class="py-20 bg-gray-50">
+    </section>
+
+  <section id="feedback" class="py-20">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-slate-800">Participe com a Aurora</h2>
+      <p class="mt-4 text-lg text-slate-600">O seu conhecimento local é essencial. Descreva um problema na sua cidade e a nossa IA Aurora irá analisá-lo e sugerir uma solução.</p>
+    </div>
+    <div class="mt-10 max-w-xl mx-auto">
+      <div class="bg-white p-8 rounded-xl shadow-lg">
+        <form id="feedbackForm" class="space-y-6">
+          <div>
+            <label for="name" class="text-sm font-medium text-gray-700">O seu Nome</label>
+            <input type="text" id="name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="city" class="text-sm font-medium text-gray-700">Cidade</label>
+              <input type="text" id="city" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+            <div>
+              <label for="country" class="text-sm font-medium text-gray-700">País</label>
+              <input type="text" id="country" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+          </div>
+          
+          <div>
+            <label for="issue-description" class="text-sm font-medium text-gray-700">Descreva o Problema Ambiental</label>
+            <textarea id="issue-description" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: A minha cidade é muito quente e não tem árvores." required></textarea>
+          </div>
+          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Analisar com a IA</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-slate-800 text-white">
+    <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+      <p>Plataforma UrbeVerde | IA Aurora</p>
+      <p class="text-sm text-slate-400 mt-2">Dados processados a partir de fontes como a NASA Earthdata e analisados com o Google Gemini e a Hugging Face.</p>
+    </div>
+  </footer>
 
   <div id="ai-response-modal-overlay" class="modal-overlay">
     <div class="modal-content">
@@ -61,23 +121,19 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // O código do mapa, gráfico e modal do mapa continua igual.
-      // ... (código do mapa omitido para brevidade) ...
+      // Mantenha o seu código original do mapa e do gráfico aqui...
 
       // ===================================================================
-      // LÓGICA PARA CONECTAR O FORMULÁRIO COM A IA NA VERCEL
+      // LÓGICA ATUALIZADA PARA CONECTAR O FORMULÁRIO COM A IA
       // ===================================================================
       
-      // 1. Defina o endereço da sua IA que você copiou da Vercel
-      const vercelApiUrl = 'https://auroraia.vercel.app/api/suggest';
+      const vercelApiUrl = 'https://auroraia.vercel.app/api/suggest'; // <<< VERIFIQUE SE ESTE É O SEU LINK CORRETO
 
-      // 2. Pegue os elementos do novo modal e do formulário
       const feedbackForm = document.getElementById('feedbackForm');
       const aiModalOverlay = document.getElementById('ai-response-modal-overlay');
       const closeAiModalBtn = document.getElementById('close-ai-modal-btn');
       const aiModalContent = document.getElementById('ai-modal-content-area');
 
-      // 3. Funções para abrir e fechar o modal da IA
       function openAiModal() { aiModalOverlay.classList.add('active'); }
       function closeAiModal() { aiModalOverlay.classList.remove('active'); }
 
@@ -86,33 +142,32 @@
         if (event.target === aiModalOverlay) closeAiModal();
       });
 
-      // 4. O que acontece quando o usuário clica em "Analisar com a IA"
       feedbackForm.addEventListener('submit', async (event) => {
-        // Previne que a página recarregue
         event.preventDefault(); 
         
-        // Pega o texto que o usuário digitou
         const problemDescription = document.getElementById('issue-description').value;
-        const neighborhoodText = document.getElementById('neighborhood').value;
+        // CAMPOS ATUALIZADOS
+        const cityText = document.getElementById('city').value;
+        const countryText = document.getElementById('country').value;
         const nameText = document.getElementById('name').value;
         
-        const fullProblemText = `In the neighborhood of ${neighborhoodText}, a citizen named ${nameText} is reporting an issue about: ${problemDescription}.`;
+        // PROMPT ATUALIZADO
+        const fullProblemText = `Na cidade de ${cityText}, ${countryText}, o cidadão ${nameText} relata o seguinte problema: ${problemDescription}.`;
 
-        if (!problemDescription || !neighborhoodText || !nameText) {
+        if (!problemDescription || !cityText || !countryText || !nameText) {
           alert('Por favor, preencha todos os campos do formulário.');
           return;
         }
 
-        // Mostra uma animação de "carregando"
+        // Mensagem de carregamento com a "Voz" da Aurora
         aiModalContent.innerHTML = `
-          <h3>Analisando seu problema...</h3>
-          <p>Nossa IA Aurora está consultando os dados e preparando uma sugestão. Aguarde um momento.</p>
+          <h3>Análise em Andamento...</h3>
+          <p>"Olá! Sou a Aurora. Recebi o seu relato e já estou a cruzar os dados com as nossas fontes de conhecimento para encontrar a melhor solução. Um momento, por favor."</p>
           <div class="loading-spinner"></div>
         `;
         openAiModal();
         
         try {
-          // 5. Envia o problema para a IA na Vercel
           const response = await fetch(vercelApiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -125,18 +180,18 @@
           
           const data = await response.json();
           
-          // 6. Formata a resposta da IA e mostra no modal
           const formattedSolution = data.solution.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
           aiModalContent.innerHTML = `
-             <h3>Sugestão da Aurora ✨</h3>
-             <p>${formattedSolution}</p>
+             <h3>Análise Concluída ✨</h3>
+             <div style="text-align: left;">${formattedSolution}</div>
           `;
 
         } catch (error) {
           console.error('Erro ao chamar a IA:', error);
+          // Mensagem de erro com a "Voz" da Aurora
           aiModalContent.innerHTML = `
-             <h3>Ocorreu um Erro</h3>
-             <p>Não foi possível conectar com nossa IA no momento. Por favor, tente novamente mais tarde.</p>
+             <h3>Um Momento, por Favor...</h3>
+             <p>"Peço desculpa, mas ocorreu um imprevisto na minha análise e não consegui concluir o pedido. A nossa equipa técnica já foi notificada. Por favor, tente novamente dentro de alguns instantes."</p>
           `;
         }
       });
