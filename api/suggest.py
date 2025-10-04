@@ -5,7 +5,6 @@ import google.generativeai as genai
 from http.server import BaseHTTPRequestHandler
 import requests
 
-# URL da API de Inferência do Hugging Face para o modelo que usamos
 HF_API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
 
 # PLANO B: Nosso "Motor de Emergência" em português
@@ -30,7 +29,7 @@ def run_fallback_system(problem_text, solutions_df):
         details = best_match.get('Solution_Details_PT', 'Detalhes não disponíveis.')
         ai_answer = f"Com base no seu relato, uma solução potencial é a **{title}**. \n\n**Detalhes:** {details} \n\n*(Esta é uma análise preliminar baseada em palavras-chave. Para uma sugestão mais detalhada, por favor, tente novamente mais tarde.)*"
     else:
-        ai_answer = "Recebemos seu relato, mas não conseguimos determinar uma solução específica no momento. Nossa equipe irá analisá-lo manualmente. Agradecemos sua contribuição."
+        ai_answer = "Recebemos seu relato, mas não conseguimos determinar uma solução específica no momento. Nossa equipe irá analisá-lo manually. Agradecemos sua contribuição."
         
     return ai_answer
 
@@ -48,7 +47,6 @@ class handler(BaseHTTPRequestHandler):
     # MÉTODO PARA PROCESSAR O PEDIDO DA IA
     def do_POST(self):
         user_problem_text = ""
-        ai_answer = ""
         try:
             # PLANO A: Tentar usar as IAs externas de alta qualidade
             print("INFO: Initiating Plan A with external APIs.")
@@ -85,23 +83,28 @@ class handler(BaseHTTPRequestHandler):
 
             best_solution = solutions_df[solutions_df['Problem_Tags'] == detected_problem].iloc[0]
             
+            # =================================================================
+            # <<< PROMPT REFINADO PARA UMA RESPOSTA MAIS CRIATIVA >>>
+            # =================================================================
             final_prompt = f"""
-            Atue como a IA "Aurora", uma urbanista especialista e consultora da plataforma UrbeVerde.
-            Um cidadão relatou o seguinte problema: "{user_problem_text}".
-            A questão principal foi identificada como sendo relacionada a: '{best_solution['Solution_Title']}'.
+            Atue como a IA "Aurora", uma urbanista virtual especialista em soluções sustentáveis. Sua personalidade é otimista, didática e inspiradora.
+            
+            **Contexto:**
+            Um cidadão preocupado relatou o seguinte problema em sua cidade: "{user_problem_text}".
+            Sua análise inicial identificou a questão principal como sendo relacionada a: '{best_solution['Solution_Title']}'.
 
-            Sua tarefa é escrever uma resposta construtiva, otimista e encorajadora em **português do Brasil** para o cidadão.
+            **Sua Missão:**
+            Gerar uma resposta original e encorajadora em **português do Brasil**. Você deve usar os "Dados Técnicos" abaixo como sua base de conhecimento, mas **NÃO DEVE simplesmente copiar ou parafrasear o texto**.
 
-            Siga esta estrutura:
-            1.  Comece validando a percepção do cidadão de forma empática.
-            2.  Explique a solução proposta, '{best_solution['Solution_Title']}', usando os detalhes técnicos abaixo. traduza os termos técnicos para uma linguagem acessível.
-            3.  Sugira um próximo passo simples e prático que o cidadão ou a comunidade possam tomar.
-            4.  Termine com uma mensagem positiva sobre o futuro das cidades.
+            **Instruções para a Resposta:**
+            1.  **Síntese e Criatividade:** Elabore uma explicação coesa e autoral sobre a solução. Use os dados técnicos como inspiração para explicar o conceito, o porquê ele funciona e seus benefícios.
+            2.  **Adicione Valor:** Enriqueça a explicação. Dê um exemplo prático de como a solução poderia ser vista na cidade do usuário (ex: "Imagine se aquela praça de cimento perto da sua casa se transformasse em um 'parque de bolso'...")
+            3.  **Linguagem Acessível:** Traduza qualquer termo técnico para uma linguagem que qualquer cidadão possa entender.
+            4.  **Estrutura Clara:** Siga a estrutura: Saudação empática -> Explicação da Solução (sua parte criativa) -> Sugestão de um próximo passo prático -> Mensagem final inspiradora.
 
-            Detalhes Técnicos da Solução para você elaborar:
-            "{best_solution.get('Solution_Details_PT', 'Não há detalhes técnicos disponíveis.')}"
-
-            A resposta deve ser concisa, clara e em tom professoral, mas amigável.
+            **Dados Técnicos (Base de Conhecimento para sua inspiração):**
+            - Título da Solução: {best_solution['Solution_Title']}
+            - Detalhes: {best_solution.get('Solution_Details_PT', 'Não há detalhes técnicos disponíveis.')}
             """
             generation_model = genai.GenerativeModel('gemini-pro')
             final_response = generation_model.generate_content(final_prompt)
@@ -117,7 +120,7 @@ class handler(BaseHTTPRequestHandler):
             solutions_df = pd.DataFrame(solutions_data)
             ai_answer = run_fallback_system(user_problem_text, solutions_df)
 
-        # Envia a resposta final (do Plano A ou B)
+        # Envia a resposta final
         self.send_response(200)
         self.send_header('Content-type', 'application/json; charset=utf-8')
         self.send_header('Access-Control-Allow-Origin', '*')

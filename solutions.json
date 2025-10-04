@@ -1,20 +1,44 @@
 [
   {
-    "Problem_Tags": "heat_island, no_trees",
-    "Keywords": ["heat", "hot", "trees", "shade", "asphalt", "calor", "árvores", "sombra"],
-    "Solution_Title": "Urban Reforestation",
-    "Solution_Details_EN": "Planting native, wide-canopy trees along sidewalks and in public spaces. Trees provide shade, cool the air through evapotranspiration, and improve air quality. A well-planned tree canopy can reduce surface temperatures significantly."
+    "Problem_Tags": "heat_island, urban_heat",
+    "Keywords": "heat, hot, trees, shade, asphalt, calor, árvores, sombra, quente, abafado, ilha de calor, UHI",
+    "Solution_Title": "Reflorestamento Urbano e Superfícies Frias",
+    "Solution_Details_PT": "O Efeito de Ilha de Calor Urbana (UHI) causa temperaturas significativamente mais altas em cidades, aumentando riscos à saúde e o consumo de energia. A solução envolve o plantio massivo de árvores para criar sombra e resfriamento por evapotranspiração, além do uso de materiais de cores claras em pavimentos e telhados para refletir a luz solar."
   },
   {
     "Problem_Tags": "air_pollution, heavy_traffic",
-    "Keywords": ["pollution", "traffic", "air", "fumes", "smoke", "poluição", "tráfego", "fumaça"],
-    "Solution_Title": "Low Emission Zones (LEZ)",
-    "Solution_Details_EN": "A designated area where access for the most polluting vehicles is restricted or charged. This encourages the use of public transport, cycling, and cleaner vehicles, directly reducing local air pollutants like NO₂ and particulate matter."
+    "Keywords": "pollution, traffic, air, fumes, smoke, poluição, tráfego, fumaça, fuligem, cheiro ruim, respirar, emissões, qualidade do ar",
+    "Solution_Title": "Zonas de Baixa Emissão (LEZ) e Transporte Público",
+    "Solution_Details_PT": "A poluição do ar em cidades, causada principalmente por transporte e indústria, é prejudicial à saúde. A solução é criar Zonas de Baixa Emissão (LEZ) onde o acesso de veículos poluentes é restrito, combinado com fortes investimentos em transporte público elétrico e infraestrutura para ciclistas."
   },
   {
-    "Problem_Tags": "flood_risk, poor_drainage",
-    "Keywords": ["flood", "water", "rain", "drainage", "alagamento", "chuva", "drenagem"],
-    "Solution_Title": "Rain Gardens and Bioswales",
-    "Solution_Details_EN": "Depressed areas in the landscape that collect rainwater from roofs, driveways, and streets. Filled with native plants, they filter pollutants and allow water to slowly soak into the ground, reducing runoff and preventing local flooding."
+    "Problem_Tags": "flood_risk, sustainable_drainage",
+    "Keywords": "flood, water, rain, drainage, alagamento, chuva, drenagem, bueiro, poça, enxurrada, SuDS, LID",
+    "Solution_Title": "Sistemas de Drenagem Sustentável (SuDS)",
+    "Solution_Details_PT": "Para combater alagamentos, os Sistemas de Drenagem Sustentável (SuDS) mimetizam a natureza. Em vez de canalizar a água da chuva, soluções como jardins de chuva, pavimentos permeáveis e biovaletas permitem que a água infiltre no solo, reduzindo o volume de escoamento e filtrando poluentes."
+  },
+  {
+    "Problem_Tags": "waste_management, illegal_dumping",
+    "Keywords": "waste, garbage, trash, dumping, lixo, resíduos, entulho, descarte, sujeira, mau cheiro, gestão de resíduos",
+    "Solution_Title": "Gestão Inteligente de Resíduos e Economia Circular",
+    "Solution_Details_PT": "A gestão de resíduos é um alvo chave para cidades sustentáveis. A solução envolve lixeiras inteligentes com sensores para otimizar a coleta, programas de reciclagem eficazes e a promoção de uma economia circular, onde o desperdício é minimizado e os materiais são reutilizados."
+  },
+  {
+    "Problem_Tags": "water_pollution, contaminated_river",
+    "Keywords": "water, river, stream, contaminated, pollution, esgoto, rio, córrego, água suja, peixes mortos",
+    "Solution_Title": "Zonas Úmidas Flutuantes e Filtros Naturais",
+    "Solution_Details_PT": "A contaminação de rios e córregos por esgoto e efluentes industriais degrada ecossistemas. Uma solução inovadora são as 'zonas úmidas flutuantes' (floating wetlands), ilhas de plantas aquáticas cujas raízes filtram naturalmente os poluentes, melhorando a qualidade da água."
+  },
+  {
+    "Problem_Tags": "lack_of_green_space, community_health",
+    "Keywords": "park, green space, plaza, concrete, leisure, parque, praça, área verde, cimento, lazer, sem verde, cidade saudável",
+    "Solution_Title": "Criação de Parques de Bolso e Planejamento de Cidades Saudáveis",
+    "Solution_Details_PT": "A falta de espaços verdes afeta a saúde física e mental. O planejamento de Cidades Saudáveis foca na criação de 'parques de bolso' (pocket parks) em terrenos ociosos e na integração de metas de saúde pública com sustentabilidade, garantindo acesso a áreas de lazer para todos."
+  },
+  {
+    "Problem_Tags": "urban_sprawl, car_dependance",
+    "Keywords": "Urban Sprawl, Car Dependance, espraiamento urbano, dependência de carro, trânsito, congestionamento, VMT, TOD",
+    "Solution_Title": "Desenvolvimento Orientado ao Transporte (TOD)",
+    "Solution_Details_PT": "O espraiamento urbano causa alta dependência de carros e longos congestionamentos. A solução é o Desenvolvimento Orientado ao Transporte (TOD), que concentra moradia, comércio e serviços de alta densidade ao redor de estações de transporte público de alta capacidade, como metrô e corredores de ônibus."
   }
 ]
