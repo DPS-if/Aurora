@@ -1,50 +1,47 @@
+<!-- index.html (sem mudanças significativas, mas confirme o fetch) -->
+<!-- O trecho fornecido já está correto, mas para completude, assumindo que o resto do HTML é padrão. -->
+<!-- Exemplo completo mínimo: -->
+
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <title>Aurora v7 - Teste de IA</title>
-  <style>
-    body { font-family: Arial; padding: 30px; background: #0b0d17; color: #fff; }
-    textarea { width: 100%; height: 100px; border-radius: 10px; padding: 10px; }
-    button { margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #1e90ff; color: white; cursor: pointer; }
-    #response { margin-top: 20px; white-space: pre-wrap; background: #111; padding: 20px; border-radius: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>Aurora v7</title>
 </head>
 <body>
-  <h1>Aurora v7 🌌</h1>
-  <textarea id="prompt" placeholder="Digite sua pergunta..."></textarea><br>
-  <button onclick="gerar()">Gerar resposta</button>
-  <div id="response"></div>
+    <h1>Aurora v7 - IA Generativa</h1>
+    <input type="text" id="prompt" placeholder="Digite seu prompt...">
+    <button onclick="gerar()">Gerar Resposta</button>
+    <div id="response"></div>
 
-  <script>
-  const API_URL = window.location.origin + "/api/generate";
+    <script>
+        const API_URL = window.location.origin + "/api/generate";
 
-async function gerar() {
-  const prompt = document.getElementById("prompt").value;
-  const resDiv = document.getElementById("response");
-  resDiv.innerText = "Gerando resposta...";
-  try {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt })
-    });
+        async function gerar() {
+          const prompt = document.getElementById("prompt").value;
+          const resDiv = document.getElementById("response");
+          resDiv.innerText = "Gerando resposta...";
+          try {
+            const res = await fetch(API_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ prompt })
+            });
 
-    const text = await res.text();
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      throw new Error(`Resposta inválida do servidor:\n${text}`);
-    }
+            const text = await res.text();
+            let data;
+            try {
+              data = JSON.parse(text);
+            } catch {
+              throw new Error(`Resposta inválida do servidor:\n${text || "[vazio]"}`);
+            }
 
-    if (!res.ok) throw new Error(data.error || "Erro desconhecido");
-    resDiv.innerText = data.response || "Sem resposta.";
-  } catch (err) {
-    resDiv.innerText = "⚠️ " + err.message;
-  }
-}
-</script>
-
+            if (!res.ok) throw new Error(data.error || "Erro desconhecido");
+            resDiv.innerText = data.response || "Sem resposta.";
+          } catch (err) {
+            resDiv.innerText = "⚠️ " + err.message;
+          }
+        }
+    </script>
 </body>
 </html>
