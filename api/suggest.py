@@ -3,12 +3,11 @@ import json
 import google.generativeai as genai
 from http.server import BaseHTTPRequestHandler
 
-# Versão Final Simplificada - Foco em Robustez e Personalidade
+# Versão Final de Diagnóstico - Foco em Robustez e Clareza no Erro
 
 class handler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
-        # Lida com a permissão de CORS
         self.send_response(200, "ok")
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
@@ -19,15 +18,11 @@ class handler(BaseHTTPRequestHandler):
         ai_answer = ""
         try:
             # --- 1. CONFIGURAÇÃO ---
-            print("[AURORA FINAL] Nova requisição recebida.")
-
-            # Valida a chave de API do Gemini
             GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
             if not GEMINI_API_KEY:
-                raise ValueError("ERRO CRÍTICO: Chave GEMINI_API_KEY não foi encontrada nas Environment Variables da Vercel.")
+                raise ValueError("Chave GEMINI_API_KEY não encontrada nas Environment Variables da Vercel.")
             
             genai.configure(api_key=GEMINI_API_KEY)
-            print("[AURORA FINAL] Gemini configurado.")
 
             # Carrega a base de conhecimento (solutions.json)
             script_dir = os.path.dirname(__file__)
@@ -35,10 +30,7 @@ class handler(BaseHTTPRequestHandler):
             with open(json_path, 'r', encoding='utf-8') as f:
                 solutions_data = json.load(f)
             
-            # Converte toda a base de conhecimento num texto que a IA possa ler
             knowledge_base_text = json.dumps(solutions_data, indent=2, ensure_ascii=False)
-            
-            print("[AURORA FINAL] Base de conhecimento carregada.")
 
             # --- 2. EXTRAÇÃO DOS DADOS DO UTILIZADOR ---
             content_length = int(self.headers['Content-Length'])
@@ -48,10 +40,8 @@ class handler(BaseHTTPRequestHandler):
 
             # --- 3. UMA ÚNICA CHAMADA PODEROSA AO GEMINI ---
             
-            # A personalidade da Aurora, definida como uma instrução de sistema
-            system_instruction = "Você é a Aurora, uma IA pesquisadora especialista em mudanças climáticas e desenvolvimento urbano sustentável. Seja sempre simpática, direta e apresente os dados com a confiança de uma académica. Use uma linguagem clara, mas não simplifique excessivamente os conceitos."
+            system_instruction = "Você é a Aurora, uma IA pesquisadora especialista em mudanças climáticas e desenvolvimento urbano sustentável. Seja sempre simpática, direta e apresente os dados com a confiança de uma académica."
             
-            # O prompt final e direto
             final_prompt = f"""
             **Sua Missão como Pesquisadora:**
             Você recebeu um problema de um cidadão e uma base de conhecimento em formato JSON. Siga estas três etapas:
@@ -74,25 +64,20 @@ class handler(BaseHTTPRequestHandler):
             ---
             """
             
-            print("[AURORA FINAL] A enviar o prompt único e completo para o modelo Gemini...")
             model = genai.GenerativeModel('gemini-pro', system_instruction=system_instruction)
             response = model.generate_content(final_prompt)
             ai_answer = response.text
-            print("[AURORA FINAL] Resposta gerada com sucesso.")
 
         except Exception as e:
-            # Se qualquer passo acima falhar, o erro exato será registado
-            print(f"!!!!!!!!!!!!!! ERRO CRÍTICO NO SERVIDOR !!!!!!!!!!!!!!")
-            print(f"TIPO DE ERRO: {type(e).__name__}")
-            print(f"MENSAGEM DE ERRO DETALHADA: {e}")
-            print(f"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            ai_answer = "Peço desculpa, mas encontrei um problema interno ao processar a sua análise. A nossa equipa técnica já foi notificada do erro exato. Por favor, tente novamente mais tarde."
+            # !!! MUDANÇA IMPORTANTE !!!
+            # Se qualquer passo acima falhar, a MENSAGEM DE ERRO EXATA será a resposta.
+            error_message = f"ERRO DE DIAGNÓSTICO DO SERVIDOR:\n\nTIPO DE ERRO: {type(e).__name__}\n\nMENSAGEM: {str(e)}"
+            ai_answer = error_message
 
-        # --- 4. ENVIO DA RESPOSTA FINAL ---
+        # --- 4. ENVIO DA RESPOSTA FINAL (OU DO ERRO) ---
         self.send_response(200)
         self.send_header('Content-type', 'application/json; charset=utf-8')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         response_data = json.dumps({'solution': ai_answer})
         self.wfile.write(response_data.encode('utf-8'))
-        print("[AURORA FINAL] Resposta enviada ao utilizador. Processo concluído.")
