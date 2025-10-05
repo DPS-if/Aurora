@@ -4,12 +4,12 @@ import pandas as pd
 import google.generativeai as genai
 from http.server import BaseHTTPRequestHandler
 
-# Versão Final e Robusta da Aurora - Criada para Diagnóstico e Performance
+# Versão Final com Classificação Inteligente via Gemini
 
 class handler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
-        # Lida com a permissão de CORS, essencial para a comunicação
+        # Lida com a permissão de CORS
         self.send_response(200, "ok")
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
@@ -17,91 +17,95 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_POST(self):
-        # Onde a magia acontece
-        
-        # Bloco de segurança principal. Se qualquer coisa aqui dentro falhar,
-        # o erro será capturado e uma mensagem de erro será enviada.
+        ai_answer = ""
         try:
             # --- 1. CONFIGURAÇÃO E VALIDAÇÃO ---
-            print("[AURORA] Nova requisição recebida. Iniciando processo...")
+            print("[AURORA V3] Nova requisição recebida. Iniciando processo...")
 
-            # Valida a chave de API do Gemini imediatamente
             GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
             if not GEMINI_API_KEY:
                 raise ValueError("ERRO CRÍTICO: Chave GEMINI_API_KEY não foi encontrada nas Environment Variables da Vercel.")
             
             genai.configure(api_key=GEMINI_API_KEY)
-            print("[AURORA] Chave API e Gemini configurados com sucesso.")
+            print("[AURORA V3] Gemini configurado.")
 
-            # Carrega a base de conhecimento (solutions.json)
+            # Carrega a base de conhecimento
             script_dir = os.path.dirname(__file__)
             json_path = os.path.join(script_dir, '..', 'solutions.json')
             with open(json_path, 'r', encoding='utf-8') as f:
                 solutions_data = json.load(f)
             
-            # Valida se o JSON não está vazio
             if not solutions_data:
                 raise ValueError("ERRO CRÍTICO: O ficheiro solutions.json está vazio ou mal formatado.")
             
-            print(f"[AURORA] Base de conhecimento carregada com {len(solutions_data)} itens.")
+            solutions_df = pd.DataFrame(solutions_data)
+            print(f"[AURORA V3] Base de conhecimento carregada com {len(solutions_data)} itens.")
 
             # --- 2. EXTRAÇÃO DOS DADOS DO UTILIZADOR ---
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
             user_input = json.loads(post_data.decode('utf-8'))
-            
             user_problem = user_input.get('problem_text', '')
-            # Extrai cidade e país do problema, caso existam no prompt do index.html
-            context_parts = user_problem.split("relata o seguinte problema:")
-            context = context_parts[0].strip() if len(context_parts) > 1 else "Local não especificado"
 
-            # --- 3. CLASSIFICAÇÃO INTERNA (USANDO PALAVRAS-CHAVE) ---
-            # Abordagem mais simples e robusta que usar um modelo externo para classificar
-            best_match = None
-            highest_score = 0
-            for solution in solutions_data:
-                score = 0
-                for keyword in solution.get('Keywords', '').split(','):
-                    if keyword.strip() in user_problem.lower():
-                        score += 1
-                if score > highest_score:
-                    highest_score = score
-                    best_match = solution
+            # --- 3. MODELO 1: GEMINI COMO CLASSIFICADOR INTELIGENTE ---
+            print("[AURORA V3] Modelo 1 (Classificador) em execução...")
             
-            if not best_match:
-                raise ValueError("Não foi encontrada nenhuma solução correspondente na base de conhecimento para o problema descrito.")
+            # Cria uma lista de categorias para o Gemini escolher
+            category_list = solutions_df['Categoria'].tolist()
             
-            print(f"[AURORA] Problema classificado na categoria: {best_match['Categoria']}")
+            classification_prompt = f"""
+            Analise o seguinte problema relatado por um cidadão: "{user_problem}".
+            Com base neste problema, qual das seguintes categorias é a mais relevante?
+            Responda APENAS com o nome exato da categoria da lista abaixo. Não adicione nenhuma outra palavra ou pontuação.
 
-            # --- 4. GERAÇÃO DA RESPOSTA COM O GEMINI ---
+            Lista de Categorias Válidas:
+            - {', '.join(category_list)}
+            """
             
-            # A personalidade da Aurora, definida como uma instrução de sistema
+            classifier_model = genai.GenerativeModel('gemini-pro')
+            classification_response = classifier_model.generate_content(classification_prompt)
+            # Limpa a resposta para garantir que temos apenas a categoria
+            detected_category = classification_response.text.strip().replace("'", "").replace('"', '')
+            
+            print(f"[AURORA V3] Categoria detectada pelo Gemini: '{detected_category}'")
+
+            # Encontra a solução correspondente na nossa base de dados
+            matching_solutions = solutions_df[solutions_df['Categoria'] == detected_category]
+            
+            if matching_solutions.empty:
+                print(f"!!! AVISO: A categoria '{detected_category}' retornada pelo Gemini não corresponde a nenhuma categoria no JSON. A tentar o fallback.")
+                # Se o Gemini devolver algo inesperado, ativamos o fallback
+                raise ValueError("O classificador de IA retornou uma categoria inválida.")
+
+            best_solution = matching_solutions.iloc[0].to_dict()
+            print(f"[AURORA V3] Categoria encontrada na base de conhecimento: {best_solution['Categoria']}")
+
+            # --- 4. MODELO 2: GEMINI COMO PESQUISADORA ESPECIALISTA ---
+            print("[AURORA V3] Modelo 2 (Pesquisadora) em execução...")
+            
             system_instruction = "Você é a Aurora, uma IA pesquisadora especialista em mudanças climáticas e desenvolvimento urbano sustentável. Seja sempre simpática, direta e apresente os dados com a confiança de uma académica. Use uma linguagem clara, mas não simplifique excessivamente os conceitos."
             
-            # O prompt final, refinado para uma resposta de alta qualidade
             final_prompt = f"""
             **Contexto da Análise:**
-            - **Local:** {context}
             - **Problema Apresentado:** {user_problem}
 
             **Sua Missão como Pesquisadora:**
             Com base **exclusivamente** no texto académico da sua fonte de conhecimento abaixo, elabore uma resposta aprofundada para o problema apresentado.
 
             **Fonte de Conhecimento (Texto-Base):**
-            - **Título do Conceito:** {best_match['Categoria']}
-            - **Texto:** "{best_match['Texto_Base']}"
+            - **Título do Conceito:** {best_solution['Categoria']}
+            - **Texto:** "{best_solution['Texto_Base']}"
 
             **Estrutura Obrigatória da Resposta:**
             1.  **Diagnóstico:** Comece por enquadrar o problema do cidadão dentro do conceito técnico do seu Texto-Base.
             2.  **Análise Detalhada:** Elabore sobre a definição e a importância do conceito, sintetizando as informações do Texto-Base numa explicação original e coesa.
-            3.  **Conclusão e Fonte:** Apresente uma breve conclusão e, numa nova linha no final, cite a sua fonte da seguinte forma: "Fonte da Análise: {best_match['Fonte']}".
+            3.  **Conclusão e Fonte:** Apresente uma breve conclusão e, numa nova linha no final, cite a sua fonte da seguinte forma: "Fonte da Análise: {best_solution['Fonte']}".
             """
             
-            print("[AURORA] A enviar o prompt final para o modelo Gemini...")
-            model = genai.GenerativeModel('gemini-pro', system_instruction=system_instruction)
-            response = model.generate_content(final_prompt)
+            researcher_model = genai.GenerativeModel('gemini-pro', system_instruction=system_instruction)
+            response = researcher_model.generate_content(final_prompt)
             ai_answer = response.text
-            print("[AURORA] Resposta gerada com sucesso pelo Gemini.")
+            print("[AURORA V3] Resposta final gerada com sucesso.")
 
         except Exception as e:
             # Se qualquer passo acima falhar, este bloco será executado
@@ -118,4 +122,4 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         response_data = json.dumps({'solution': ai_answer})
         self.wfile.write(response_data.encode('utf-8'))
-        print("[AURORA] Resposta enviada ao utilizador. Processo concluído.")
+        print("[AURORA V3] Resposta enviada ao utilizador. Processo concluído.")
