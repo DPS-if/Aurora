@@ -1,12 +1,20 @@
 from flask import Flask, request, jsonify
-from transformers import pipeline
+import google.generativeai as genai
+import os
 
 app = Flask(__name__)
-modelo = pipeline("text-generation", model="meta-llama/Llama-2-7b-chat-hf")
+genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+
+model = genai.GenerativeModel("gemini-pro")
 
 @app.route("/api/suggest", methods=["POST"])
 def sugerir():
     dados = request.get_json()
     prompt = dados.get("problem_text", "")
-    resposta = modelo(prompt, max_length=300, do_sample=True)[0]['generated_text']
-    return jsonify({"solution": resposta})
+
+    try:
+        resposta = model.generate_content(prompt)
+        texto = resposta.text
+        return jsonify({"solution": texto})
+    except Exception as e:
+        return jsonify({"solution": "Desculpe, ocorreu um erro na análise da IA."}), 500
