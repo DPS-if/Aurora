@@ -1,41 +1,103 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Aurora v7</title>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <title>NASA Space Chat IA</title>
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #chat {
+      width: 90%;
+      max-width: 600px;
+      height: 400px;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 10px;
+      overflow-y: auto;
+      background: #161b22;
+      margin-bottom: 10px;
+    }
+    .msg { margin: 6px 0; }
+    .user { color: #58a6ff; }
+    .ai { color: #a5d6ff; }
+    input {
+      width: 70%;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      background: #21262d;
+      color: #e6edf3;
+    }
+    button {
+      width: 20%;
+      padding: 8px;
+      margin-left: 10px;
+      border: none;
+      border-radius: 4px;
+      background: #238636;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <h1>Aurora v7 - IA Generativa</h1>
-    <input type="text" id="prompt" placeholder="Digite seu prompt...">
-    <button onclick="gerar()">Gerar Resposta</button>
-    <div id="response"></div>
+  <h1>🚀 NASA Space Chat</h1>
+  <div id="chat"></div>
+  <div>
+    <input id="input" placeholder="Pergunte algo..." />
+    <button onclick="enviar()">Enviar</button>
+  </div>
 
-    <script>
-        const API_URL = window.location.origin + "/api/generate";
-        async function gerar() {
-            const prompt = document.getElementById("prompt").value;
-            const resDiv = document.getElementById("response");
-            resDiv.innerText = "Gerando resposta...";
-            try {
-                const res = await fetch(API_URL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ prompt })
-                });
-                const text = await res.text();
-                let data;
-                try {
-                    data = JSON.parse(text);
-                } catch {
-                    throw new Error(`Resposta inválida do servidor: ${text || "[vazio]"}`);
-                }
-                if (!res.ok) throw new Error(data.error || `HTTP ${res.status}: ${res.statusText}`);
-                resDiv.innerText = data.response || "Sem resposta.";
-            } catch (err) {
-                resDiv.innerText = `⚠️ Erro: ${err.message}`;
-            }
-        }
-    </script>
-</body>
-</html>
+  <script>
+    const chat = document.getElementById("chat");
+    const input = document.getElementById("input");
+
+    // ⚠️ Coloque sua chave aqui SOMENTE SE FOR TESTE LOCAL
+    const API_KEY = "sk-COLOQUE-SUA-CHAVE-AQUI";
+
+    async function enviar() {
+      const texto = input.value.trim();
+      if (!texto) return;
+      adicionarMensagem("Você", texto, "user");
+      input.value = "";
+      adicionarMensagem("IA", "Gerando resposta...", "ai");
+
+      try {
+        const res = await fetch("https://api.openai.com/v1/responses", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${API_KEY}`,
+          },
+          body: JSON.stringify({
+            model: "gpt-4o-mini",
+            input: texto
+          })
+        });
+
+        const data = await res.json();
+        removerCarregando();
+        adicionarMensagem("IA", data.output_text || "Sem resposta 😅", "ai");
+
+      } catch (error) {
+        removerCarregando();
+        adicionarMensagem("IA", "Erro ao conectar à API 😢", "ai");
+        console.error(error);
+      }
+    }
+
+    function adicionarMensagem(user, text, classe) {
+      const div = document.createElement("div");
+      div.className = `msg ${classe}`;
+      div.innerHTML = `<strong>${user}:</strong> ${text}`;
+      chat.appendChild(div);
+      chat.scrollTo
