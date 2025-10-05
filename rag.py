@@ -1,11 +1,13 @@
 import json
 import os
-from transformers import pipeline
+import numpy as np
+import onnxruntime as ort
 
-# Carrega o modelo uma vez (cache no Hugging Face Hub)
-print("DEBUG: Carregando modelo DistilGPT-2...")
-generator = pipeline("text-generation", model="distilgpt2", device=-1)  # device=-1 para CPU
-print("DEBUG: Modelo carregado com sucesso!")
+# Carrega o modelo ONNX uma vez
+MODEL_PATH = os.path.join("models", "mini-gpt.onnx")
+print("DEBUG: Carregando modelo ONNX...")
+session = ort.InferenceSession(MODEL_PATH)
+print("DEBUG: Modelo ONNX carregado com sucesso!")
 
 def carregar_base():
     caminho = os.path.join("data", "nasa_dataset.json")
@@ -16,6 +18,16 @@ def carregar_base():
     except Exception as e:
         print(f"DEBUG: Erro ao carregar base: {e}")
         return []
+
+def tokenize_input(text):
+    # Função simplificada de tokenização (substitua por uma real se necessário)
+    tokens = text.split()
+    token_ids = [hash(word) % 1000 for word in tokens]  # Exemplo fictício
+    return np.array([token_ids], dtype=np.int64)
+
+def detokenize_output(token_ids):
+    # Função simplificada de detokenização (substitua por uma real)
+    return " ".join([str(id) for id in token_ids])
 
 def gerar_resposta(prompt: str) -> str:
     try:
@@ -30,15 +42,12 @@ def gerar_resposta(prompt: str) -> str:
 
         entrada = f"Contexto: {contexto}\nPergunta: {prompt}\nResposta:"
         
-        # Gera texto com o modelo local
-        response = generator(
-            entrada,
-            max_new_tokens=200,
-            temperature=0.7,
-            do_sample=True,
-            pad_token_id=generator.tokenizer.eos_token_id
-        )
-        texto = response[0]["generated_text"][len(entrada):].strip()
+        # Tokenização simplificada (substitua por tokenização real do modelo)
+        input_ids = tokenize_input(entrada)
+        
+        # Executa inferência com ONNX Runtime
+        outputs = session.run(None, {"input_ids": input_ids})[0]
+        texto = detokenize_output(outputs[0])
         print(f"DEBUG: Resposta gerada: {texto}")
         return texto or "[Erro: resposta vazia do modelo]"
     except Exception as e:

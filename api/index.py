@@ -49,7 +49,3 @@ def catch_all(path):
     if path == "favicon.ico":
         return app.send_static_file("favicon.ico")
     return jsonify({"error": "Rota não encontrada"}), 404
-
-if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
