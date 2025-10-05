@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Plataforma UrbeVerde - IA Aurora</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Estilos personalizados e do modal */
+    body { font-family: 'Poppins', sans-serif; }
+    .modal-overlay { /* ... */ }
+    .modal-content { /* ... */ }
+    .loading-spinner { /* ... */ }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <h1 class="text-4xl font-bold text-center mt-10">Aurora 🌱</h1>
+    <p class="text-center text-lg mt-2">Descreva um problema ambiental e receba uma solução da IA</p>
+  </header>
+
+  <!-- Formulário -->
+  <section id="feedback" class="py-10">
+    <form id="feedbackForm" class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+      <input type="text" id="name" placeholder="Seu nome" required class="w-full mb-4 p-2 border rounded">
+      <input type="text" id="city" placeholder="Cidade" required class="w-full mb-4 p-2 border rounded">
+      <input type="text" id="country" placeholder="País" required class="w-full mb-4 p-2 border rounded">
+      <textarea id="issue-description" placeholder="Descreva o problema ambiental" required class="w-full mb-4 p-2 border rounded"></textarea>
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded">Analisar com a IA</button>
+    </form>
+  </section>
+
+  <!-- Modal de resposta -->
+  <div id="ai-response-modal-overlay" class="modal-overlay">
+    <div class="modal-content">
+      <button id="close-ai-modal-btn" class="modal-close-btn">&times;</button>
+      <div id="ai-modal-content-area"></div>
+    </div>
+  </div>
+
+  <!-- Script de integração com a API -->
+  <script>
+    const vercelApiUrl = 'https://auroraia.vercel.app/api/suggest';
+    const feedbackForm = document.getElementById('feedbackForm');
+    const aiModalOverlay = document.getElementById('ai-response-modal-overlay');
+    const closeAiModalBtn = document.getElementById('close-ai-modal-btn');
+    const aiModalContent = document.getElementById('ai-modal-content-area');
+
+    function openAiModal() { aiModalOverlay.classList.add('active'); }
+    function closeAiModal() { aiModalOverlay.classList.remove('active'); }
+
+    closeAiModalBtn.addEventListener('click', closeAiModal);
+    aiModalOverlay.addEventListener('click', (e) => { if (e.target === aiModalOverlay) closeAiModal(); });
+
+    feedbackForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const city = document.getElementById('city').value;
+      const country = document.getElementById('country').value;
+      const issue = document.getElementById('issue-description').value;
+      const fullPrompt = `Na cidade de ${city}, ${country}, o cidadão ${name} relata o seguinte problema: ${issue}.`;
+
+      aiModalContent.innerHTML = `<h3>Análise em andamento...</h3><div class="loading-spinner"></div>`;
+      openAiModal();
+
+      try {
+        const res = await fetch(vercelApiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ problem_text: fullPrompt })
+        });
+        const data = await res.json();
+        const formatted = data.solution.replace(/\n/g, '<br>');
+        aiModalContent.innerHTML = `<h3>Solução proposta:</h3><p>${formatted}</p>`;
+      } catch (err) {
+        aiModalContent.innerHTML = `<h3>Erro</h3><p>Não foi possível obter uma resposta da IA. Tente novamente mais tarde.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
