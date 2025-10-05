@@ -1,9 +1,8 @@
 {
-  "name": "urbanminds-ai-backend",
+  "name": "aurora",
   "version": "1.0.0",
-  "description": "API backend for Groq integration.",
   "type": "module",
   "dependencies": {
-    "groq-sdk": "^0.5.1" 
+    "groq-sdk": "0.4.0"
   }
 }
