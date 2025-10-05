@@ -6,8 +6,12 @@ import sys
 
 # Adiciona diretório pai para importar rag.py
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+print("DEBUG: Inicializando Flask, sys.path:", sys.path)
 
-from rag import gerar_resposta
+try:
+    from rag import gerar_resposta
+except ImportError as e:
+    print(f"DEBUG: Erro ao importar rag: {e}")
 
 app = Flask(__name__)
 CORS(app)
@@ -40,6 +44,3 @@ def catch_all(path):
         return jsonify({"status": "online", "message": "Aurora v7 - API com Gemini"})
     print(f"DEBUG: Rota não encontrada: {request.path}")
     return jsonify({"error": "Rota não encontrada"}), 404
-
-if __name__ == "__main__":
-    app.run(debug=True)
