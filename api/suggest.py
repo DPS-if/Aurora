@@ -3,11 +3,12 @@ import json
 import google.generativeai as genai
 from http.server import BaseHTTPRequestHandler
 
-# Versão Final de Diagnóstico - Foco em Robustez e Clareza no Erro
+# Versão Final com o Nome do Modelo Corrigido e Arquitetura Robusta
 
 class handler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
+        # Lida com a permissão de CORS, essencial para a comunicação
         self.send_response(200, "ok")
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
@@ -40,8 +41,10 @@ class handler(BaseHTTPRequestHandler):
 
             # --- 3. UMA ÚNICA CHAMADA PODEROSA AO GEMINI ---
             
-            system_instruction = "Você é a Aurora, uma IA pesquisadora especialista em mudanças climáticas e desenvolvimento urbano sustentável. Seja sempre simpática, direta e apresente os dados com a confiança de uma académica."
+            # A personalidade da Aurora, definida como uma instrução de sistema
+            system_instruction = "Você é a Aurora, uma IA pesquisadora especialista em mudanças climáticas e desenvolvimento urbano sustentável. Seja sempre simpática, direta e apresente os dados com a confiança de uma académica. Use uma linguagem clara, mas não simplifique excessivamente os conceitos."
             
+            # O prompt final e direto
             final_prompt = f"""
             **Sua Missão como Pesquisadora:**
             Você recebeu um problema de um cidadão e uma base de conhecimento em formato JSON. Siga estas três etapas:
@@ -64,13 +67,15 @@ class handler(BaseHTTPRequestHandler):
             ---
             """
             
-            model = genai.GenerativeModel('gemini-pro', system_instruction=system_instruction)
+            # <<< A CORREÇÃO FINAL ESTÁ AQUI >>>
+            # Usando o nome do modelo estável e correto: 'gemini-1.0-pro'
+            model = genai.GenerativeModel('gemini-1.0-pro', system_instruction=system_instruction)
+            
             response = model.generate_content(final_prompt)
             ai_answer = response.text
 
         except Exception as e:
-            # !!! MUDANÇA IMPORTANTE !!!
-            # Se qualquer passo acima falhar, a MENSAGEM DE ERRO EXATA será a resposta.
+            # Se qualquer passo acima falhar, a mensagem de erro exata será a resposta.
             error_message = f"ERRO DE DIAGNÓSTICO DO SERVIDOR:\n\nTIPO DE ERRO: {type(e).__name__}\n\nMENSAGEM: {str(e)}"
             ai_answer = error_message
 
