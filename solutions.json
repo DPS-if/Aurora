@@ -1,212 +1,32 @@
 [
   {
-    "Link": "Link 1",
-    "Palavra-Chave Principal (Key Aspect)": "Environment And Sustainable Development",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Environmental law and sustainable development is a practice area focusing on regulatory frameworks, legal compliance, and strategic planning for projects to ensure they meet environmental protection standards while promoting long-term ecological and social well-being."
+    "Categoria": "Desenvolvimento Sustentável e Direito Ambiental",
+    "Palavras_Chave": "lei, regulamentação, sustentabilidade, desenvolvimento, ambiental, ecológico, bem-estar",
+    "Link_Fonte": "Environment And Sustainable Development",
+    "Texto_Base": "O direito ambiental e o desenvolvimento sustentável são uma área de atuação focada em estruturas regulatórias, conformidade legal e planeamento estratégico para projetos, garantindo que atendam aos padrões de proteção ambiental enquanto promovem o bem-estar ecológico e social a longo prazo."
   },
   {
-    "Link": "Link 2",
-    "Palavra-Chave Principal (Key Aspect)": "Sustainable Drainage System (SuDS)",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Water-sensitive urban design (WSUD) is a holistic land planning and engineering approach in Australia/NZ that integrates the urban water cycle into cityscape planning, with a key objective being the use of SuDS to manage stormwater and mitigate urban flooding."
+    "Categoria": "Sistemas de Drenagem Sustentável (SuDS)",
+    "Palavras_Chave": "drenagem, SuDS, alagamento, chuva, enchente, água, escoamento, WSUD",
+    "Link_Fonte": "Sustainable Drainage System (SuDS)",
+    "Texto_Base": "Os Sistemas de Drenagem Sustentável (SuDS) são projetados para gerir o escoamento de águas superficiais o mais próximo possível da sua origem. Eles visam imitar os processos naturais, gerindo a quantidade de água, melhorando a sua qualidade e proporcionando benefícios de amenidade e biodiversidade."
   },
   {
-    "Link": "Link 3",
-    "Palavra-Chave Principal (Key Aspect)": "Sustainable Drainage System (SuDS)",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Sustainable Drainage Systems (SuDS) are designed to manage surface water runoff as close to its source as possible. They aim to mimic natural processes by managing water quantity, improving water quality, and providing amenity and biodiversity benefits."
+    "Categoria": "Desenvolvimento de Baixo Impacto (LID)",
+    "Palavras_Chave": "LID, baixo impacto, escoamento, águas pluviais, micro-escala, paisagem",
+    "Link_Fonte": "Low-Impact Development (LID)",
+    "Texto_Base": "O Desenvolvimento de Baixo Impacto (LID) é uma abordagem de planeamento e engenharia usada para gerir o escoamento de águas pluviais. O LID utiliza projetos integrados para tratar o escoamento através de controlos em micro-escala e preservar as características da paisagem natural."
   },
   {
-    "Link": "Link 4",
-    "Palavra-Chave Principal (Key Aspect)": "Low-Impact Development (LID)",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Low-Impact Development (LID) is a land planning and engineering design approach in the U.S. and Canada with a set of principles used to manage stormwater runoff. LID uses integrated designs to treat runoff via micro-scale controls and preserve natural landscape features."
+    "Categoria": "Vulnerabilidade às Mudanças Climáticas",
+    "Palavras_Chave": "clima, vulnerabilidade, mudança climática, riscos, eventos extremos, social",
+    "Link_Fonte": "Climate Change Vulnerability",
+    "Texto_Base": "A vulnerabilidade às mudanças climáticas refere-se ao grau em que um sistema natural ou social é suscetível ou incapaz de lidar com os efeitos adversos das mudanças climáticas, incluindo a variabilidade climática e os extremos."
   },
   {
-    "Link": "Link 5",
-    "Palavra-Chave Principal (Key Aspect)": "Climate Change Vulnerability",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Climate change vulnerability refers to the degree to which a natural or social system is susceptible to, or unable to cope with, adverse effects of climate change, including climate variability, extremes, and changes in average climate characteristics."
-  },
-  {
-    "Link": "Link 6",
-    "Palavra-Chave Principal (Key Aspect)": "Spatial Planning",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Spatial planning is an integrated approach to managing the use and development of land and sea areas. It involves coordinating policies across different sectors (e.g., transport, housing, environment) to achieve more equitable, efficient, and sustainable distribution of activities."
-  },
-  {
-    "Link": "Link 7",
-    "Palavra-Chave Principal (Key Aspect)": "Montevideo Environmental Law Programme",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "The Montevideo Environmental Law Programme is a global initiative by the UN Environment Programme (UNEP) to enhance the capacity of countries to develop and implement effective national environmental law. It guides the development of international environmental legal frameworks."
-  },
-  {
-    "Link": "Link 8",
-    "Palavra-Chave Principal (Key Aspect)": "Environmental Law",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Environmental law is the collection of treaties, statutes, regulations, and common laws that regulate the interaction of humanity and the natural environment. Its purpose is to protect the environment and manage natural resources, often through pollution control and conservation."
-  },
-  {
-    "Link": "Link 9",
-    "Palavra-Chave Principal (Key Aspect)": "Sustainable Development Goal 11 (SDG 11)",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "SDG 11: Sustainable Cities and Communities is one of the 17 Sustainable Development Goals, focused on making human settlements inclusive, safe, resilient, and sustainable. Key targets include housing, transport, air quality, waste management, and sustainable urbanization."
-  },
-  {
-    "Link": "Link 10",
-    "Palavra-Chave Principal (Key Aspect)": "Climate Change and Cities",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Cities are highly vulnerable to climate change due to their density, critical infrastructure, and concentration of population and economic activity. They are also major contributors, making local government planning, mitigation, and adaptation strategies crucial for global climate efforts."
-  },
-  {
-    "Link": "Link 11",
-    "Palavra-Chave Principal (Key Aspect)": "Environmental Issues",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Environmental issues are harmful effects of human activities on the biophysical environment. Key categories include pollution (air, water, land), resource depletion (water, fossil fuels), habitat destruction, and the impacts of climate change on biodiversity and human health."
-  },
-  {
-    "Link": "Link 12",
-    "Palavra-Chave Principal (Key Aspect)": "Resource Efficiency",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Resource efficiency is the ability to produce more goods and services with less environmental impact by reducing the amount of natural resources consumed and minimizing waste throughout the entire life cycle of products and services."
-  },
-  {
-    "Link": "Link 13",
-    "Palavra-Chave Principal (Key Aspect)": "Economic Development",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Economic development is the process by which a nation improves the economic, political, and social well-being of its people. Sustainable economic development aims to meet current needs without compromising the ability of future generations to meet theirs, integrating environmental concerns."
-  },
-  {
-    "Link": "Link 14",
-    "Palavra-Chave Principal (Key Aspect)": "Environmental Sustainability",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Environmental sustainability is the ability of the environment to support a defined level of environmental quality and natural resource extraction rates indefinitely. It requires maintaining ecological balance and protecting natural capital to support human life and well-being long-term."
-  },
-  {
-    "Link": "Link 15",
-    "Palavra-Chave Principal (Key Aspect)": "Sustainable Development Goals (SDGs)",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "The Sustainable Development Goals (SDGs) are a collection of 17 global goals set by the UN in 2015 for the year 2030. They are a universal call to action to end poverty, protect the planet, and ensure peace and prosperity, with targets covering social, economic, and environmental issues."
-  },
-  {
-    "Link": "Link 16",
-    "Palavra-Chave Principal (Key Aspect)": "Sustainable City",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "A Sustainable City (or \"eco-city\") is a city designed with the consideration of the environmental impacts, aiming for minimal resource use, maximum energy efficiency, and a reduced carbon footprint, while providing a high quality of life for its residents."
-  },
-  {
-    "Link": "Link 17",
-    "Palavra-Chave Principal (Key Aspect)": "Healthy Cities Initiative",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "The Healthy Cities initiative by the WHO aims to place health high on the agenda of decision-makers in cities, emphasizing a holistic approach where environmental, social, and economic factors are integrated into urban planning to promote the health and well-being of all citizens."
-  },
-  {
-    "Link": "Link 18",
-    "Palavra-Chave Principal (Key Aspect)": "Healthy Sustainable Urban Development Pathways",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Defining pathways to healthy sustainable urban development involves creating interdisciplinary frameworks that integrate public health goals with environmental sustainability and equity concerns. This requires policy and planning that go beyond simple greening to address social determinants of health."
-  },
-  {
-    "Link": "Link 19",
-    "Palavra-Chave Principal (Key Aspect)": "Human Settlements",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Human Settlements encompasses the total community, including the people, their dwellings, and the surrounding infrastructure and environment. UN efforts focus on sustainable settlements through improved planning, housing, and access to basic services to address urbanization challenges."
-  },
-  {
-    "Link": "Link 20",
-    "Palavra-Chave Principal (Key Aspect)": "Pathways to Sustainable Cities",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Pathways to Sustainable Cities involve strategic policy choices and implementation that prioritize integrated planning, low-carbon development, climate resilience, and social equity. Key areas include sustainable transport, renewable energy, and efficient resource use."
-  },
-  {
-    "Link": "Link 21",
-    "Palavra-Chave Principal (Key Aspect)": "City Planning Policies for Health and Sustainability",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "City planning policies are crucial levers for supporting health and sustainability. International comparisons highlight the importance of policies related to land-use mix, public transit, and density, showing a strong link between these indicators and positive health/environmental outcomes."
-  },
-  {
-    "Link": "Link 22",
-    "Palavra-Chave Principal (Key Aspect)": "Healthy City Indicators (99 Indicators)",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "A set of 99 healthy city indicators provides a comprehensive tool for urban planners and designers to assess and guide urban development towards better public health outcomes. These indicators cover domains like environment, lifestyle, socio-economic factors, and urban form."
-  },
-  {
-    "Link": "Link 23",
-    "Palavra-Chave Principal (Key Aspect)": "Global Urban Environment and Health Index",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "The Global Urban Environment and Health Index is an assessment tool designed to promote a healthy cities agenda by providing a measure of a city's performance across various environmental and health dimensions, facilitating evidence-based policy making."
-  },
-  {
-    "Link": "Link 24",
-    "Palavra-Chave Principal (Key Aspect)": "Urban and Territorial Planning for Health Equity",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Urban and Territorial Planning (UTP) is essential for supporting a healthy planet and promoting health equity. UTP policies must be designed to address environmental injustices and ensure that urban development benefits all populations, especially the most vulnerable."
-  },
-  {
-    "Link": "Link 25",
-    "Palavra-Chave Principal (Key Aspect)": "Healthy Settings Approach",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "The Healthy Settings Approach, exemplified by the Healthy Cities movement, focuses on transforming the environmental and organizational context of places where people live, work, and play (e.g., schools, workplaces, communities) to promote health through participatory and holistic methods."
-  },
-  {
-    "Link": "Link 26",
-    "Palavra-Chave Principal (Key Aspect)": "Global Regional Environmental Problems",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Global Regional Environmental Problems are diverse, varying significantly by geography. In developing regions, issues often include water scarcity and local pollution, while developed regions grapple more with legacy contamination, climate adaptation, and resource consumption rates."
-  },
-  {
-    "Link": "Link 27",
-    "Palavra-Chave Principal (Key Aspect)": "Main Environmental Problems",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "The Main Environmental Problems globally include, but are not limited to, deforestation, biodiversity loss, air and water pollution, soil degradation, and the anthropogenic acceleration of climate change. These are often interlinked with patterns of human development and consumption."
-  },
-  {
-    "Link": "Link 28",
-    "Palavra-Chave Principal (Key Aspect)": "Heat Island Effect (EPA)",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "The Heat Island Effect refers to urban and metropolitan areas that are significantly warmer than their surrounding rural areas due to human activities. EPA mitigation strategies include using cool roofs, increasing vegetation, and implementing reflective pavements to reduce air conditioning demand and air pollution."
-  },
-  {
-    "Link": "Link 29",
-    "Palavra-Chave Principal (Key Aspect)": "Water Pollution",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Water pollution is the contamination of water bodies, usually as a result of human activities. It affects sources like rivers, lakes, oceans, and groundwater, often caused by industrial effluent, untreated sewage, and agricultural runoff, posing severe risks to aquatic life and human health."
-  },
-  {
-    "Link": "Link 30",
-    "Palavra-Chave Principal (Key Aspect)": "Water Quality",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Water quality refers to the chemical, physical, and biological characteristics of water, usually in respect to its suitability for a particular purpose, such as drinking, swimming, or supporting aquatic ecosystems. Quality is assessed by testing for contaminants like pathogens and heavy metals."
-  },
-  {
-    "Link": "Link 31",
-    "Palavra-Chave Principal (Key Aspect)": "Air Pollution",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Air pollution is the presence of substances in the atmosphere that are harmful to the health of humans and other living beings, or cause damage to the climate or to materials. Major urban sources include vehicle emissions, industrial output, and the burning of fossil fuels."
-  },
-  {
-    "Link": "Link 32",
-    "Palavra-Chave Principal (Key Aspect)": "Air Pollution Solutions",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Air pollution solutions involve both policy and technological interventions, such as setting stricter emission standards for vehicles and industries, promoting renewable energy, improving public transport, and implementing urban planning to reduce vehicle dependency."
-  },
-  {
-    "Link": "Link 33",
-    "Palavra-Chave Principal (Key Aspect)": "Urban Heat Island",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "The Urban Heat Island (UHI) effect is a key characteristic of urban environments where built surfaces (asphalt, concrete) absorb and retain more heat than natural landscapes. This effect intensifies heatwaves, increases energy consumption, and negatively impacts public health, especially at night."
-  },
-  {
-    "Link": "Additional",
-    "Palavra-Chave Principal (Key Aspect)": "Global Urban Environmental Problems",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Global urban development exacerbates issues like inadequate sanitation in the Global South (leading to waterborne diseases), air quality crises in rapidly industrializing Asian cities (linked to high respiratory disease rates), and coastal city vulnerability to sea-level rise and storm surges across all regions."
-  },
-  {
-    "Link": "Data_GlobalSouth_Sanitation",
-    "Palavra-Chave Principal (Key Aspect)": "Sub-Saharan Africa: Sanitation & Water",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Sub-Saharan African cities face critical challenges with inadequate sanitation infrastructure and non-potable water access due to rapid, unplanned urbanization. Solutions center on decentralized wastewater systems, low-cost ecological sanitation (EcoSan), and scaling up utility-managed water access and smart leak detection."
-  },
-  {
-    "Link": "Data_Asia_AirPollution",
-    "Palavra-Chave Principal (Key Aspect)": "East/South Asia: Air Quality Crisis",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Rapid industrialization and heavy traffic in major East/South Asian cities (e.g., Beijing, Delhi) result in severe PM2.5 and Ozone pollution crises. Solutions require strict vehicle emission standards, transitioning to electric public transport, implementing regional air quality management, and migrating heavy industry away from population centers."
-  },
-  {
-    "Link": "Data_LatAm_InformalSettlements",
-    "Palavra-Chave Principal (Key Aspect)": "Latin America: Informal Settlements & Risk",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Many Latin American cities struggle with precarious and high-risk informal settlements (favelas), often located on vulnerable slopes or floodplains, amplifying landslide and flood risks. Solutions involve integrated urban land-use planning, tenure security programs, in-situ upgrading, and investment in resilient green infrastructure to stabilize vulnerable areas."
-  },
-  {
-    "Link": "Data_Europe_EnergyEfficiency",
-    "Palavra-Chave Principal (Key Aspect)": "Western Europe: Aging Infrastructure & GHG",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Major cities in Western Europe contend with aging building stock and high per-capita energy consumption, contributing to significant greenhouse gas (GHG) emissions. Solutions focus on ambitious building retrofitting programs, expanding district heating/cooling networks powered by renewables, and circular economy principles in construction and waste management."
-  },
-  {
-    "Link": "Data_NA_Sprawl_CarDependence",
-    "Palavra-Chave Principal (Key Aspect)": "North America: Urban Sprawl & VMT",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Cities in North America (US/Canada) are characterized by extensive urban sprawl, high vehicle miles traveled (VMT), and extreme car dependence. Solutions include transit-oriented development (TOD), upzoning near transit, investments in high-speed rail, and leveraging LID/SuDS for integrated stormwater management in existing dense suburbs."
-  },
-  {
-    "Link": "Data_MENA_WaterScarcity_Heat",
-    "Palavra-Chave Principal (Key Aspect)": "Middle East & North Africa: Heat & Water",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "MENA urban centers are highly vulnerable to extreme heat (UHI effect) and chronic water scarcity. Solutions require large-scale investment in passive cooling building design, use of desalinated or treated water for non-potable uses, and massive deployment of reflective/cool pavements and extensive urban tree canopies."
-  },
-  {
-    "Link": "Data_Oceania_ClimateAdaptation",
-    "Palavra-Chave Principal (Key Aspect)": "Oceania (Australia/NZ): Coastal Climate Risk",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Cities across Oceania, especially coastal settlements, face heightened risks from sea-level rise, coastal erosion, and extreme weather. Solutions emphasize climate-resilient planning, managed retreat policies for highly vulnerable areas, and large-scale protection/restoration of coastal ecosystems (e.g., mangroves, wetlands) as natural buffers."
-  },
-  {
-    "Link": "Data_Arctic_Permafrost",
-    "Palavra-Chave Principal (Key Aspect)": "The Arctic: Permafrost Thaw & Infrastructure",
-    "Texto-Base/Snippet para IA (AI Data Snippet)": "Settlements in the Arctic region are directly threatened by permafrost thaw, which destabilizes critical infrastructure like roads, pipelines, and buildings. Solutions require specialized engineering for foundation stabilization (e.g., thermosiphons), relocation planning, and immediate emissions reduction to slow regional warming."
+    "Categoria": "Planeamento Espacial e Uso do Solo",
+    "Palavras_Chave": "planeamento, espacial, território, uso do solo, políticas, equidade",
+    "Link_Fonte": "Spatial Planning",
+    "Texto_Base": "O planeamento espacial é uma abordagem integrada para gerir o uso e desenvolvimento de áreas terrestres e marítimas. Envolve a coordenação de políticas entre diferentes setores (transporte, habitação, ambiente) para alcançar uma distribuição mais equitativa, eficiente e sustentável das atividades."
   }
 ]
