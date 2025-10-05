@@ -1,4 +1,3 @@
-// /api/chat.js
 import { Groq } from 'groq-sdk';
 
 const groq = new Groq({
@@ -12,19 +11,28 @@ export default async function handler(req, res) {
   if (!prompt) return res.status(400).json({ error: "Faltou prompt" });
 
   try {
-    // Criar a requisição de chat com streaming
     const chatCompletion = await groq.chat.completions.create({
-      messages: [
-        { role: "user", content: prompt }
-      ],
       model: "llama-3.3-70b-versatile",
-      temperature: 1,
+      messages: [
+        {
+          role: "system",
+          content: `Você é Aurora, uma pesquisadora especialista em problemas ambientais urbanos, 
+          com conhecimento em sociologia aplicada. Sempre responda:
+          1) um resumo de aproximadamente 10 linhas sobre o tema que o usuário enviar;
+          2) uma frase final com a solução principal expressa em **uma palavra-chave**. 
+          Seja clara, didática e objetiva.`
+        },
+        {
+          role: "user",
+          content: prompt
+        }
+      ],
+      temperature: 0.7,
       max_completion_tokens: 1024,
       top_p: 1,
-      stream: false // ⚠️ streaming só funciona no Node, não no fetch do browser
+      stream: false
     });
 
-    // Pega o texto completo
     const text = chatCompletion.choices[0]?.message?.content || "Sem resposta";
     res.status(200).json({ resposta: text });
 
@@ -33,4 +41,3 @@ export default async function handler(req, res) {
     res.status(500).json({ error: "Erro interno do servidor" });
   }
 }
-
