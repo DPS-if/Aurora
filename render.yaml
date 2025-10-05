@@ -3,9 +3,11 @@ services:
     name: aurora-v7
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cpu
+    buildCommand: pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
     startCommand: python api/index.py
     autoDeploy: true
     envVars:
       - key: PYTHON_VERSION
         value: 3.10
+      - key: PIP_NO_CACHE_DIR
+        value: "true"
