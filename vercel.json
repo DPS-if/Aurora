@@ -1,9 +1,121 @@
-{
-  "builds": [
-    { "src": "api/suggest.py", "use": "@vercel/python" }
-  ],
-  "routes": [
-    { "src": "/api/suggest", "dest": "api/suggest.py" },
-    { "src": "/", "dest": "public/index.html" }
-  ]
-}
+[
+  {
+    "keyword": "Environment And Sustainable Development",
+    "snippet": "Environmental law and sustainable development is a practice area focusing on regulatory frameworks, legal compliance, and strategic planning for projects to ensure they meet environmental protection standards while promoting long-term ecological and social well-being."
+  },
+  {
+    "keyword": "Sustainable Drainage System (SuDS)",
+    "snippet": "Water-sensitive urban design (WSUD) is a holistic land planning and engineering approach in Australia/NZ that integrates the urban water cycle into cityscape planning, with a key objective being the use of SuDS to manage stormwater and mitigate urban flooding."
+  },
+  {
+    "keyword": "Sustainable Drainage System (SuDS)",
+    "snippet": "Sustainable Drainage Systems (SuDS) are designed to manage surface water runoff as close to its source as possible. They aim to mimic natural processes by managing water quantity, improving water quality, and providing amenity and biodiversity benefits."
+  },
+  {
+    "keyword": "Low-Impact Development (LID)",
+    "snippet": "Low-Impact Development (LID) is a land planning and engineering design approach in the U.S. and Canada with a set of principles used to manage stormwater runoff. LID uses integrated designs to treat runoff via micro-scale controls and preserve natural landscape features."
+  },
+  {
+    "keyword": "Climate Change Vulnerability",
+    "snippet": "Climate change vulnerability refers to the degree to which a natural or social system is susceptible to, or unable to cope with, adverse effects of climate change, including climate variability, extremes, and changes in average climate characteristics."
+  },
+  {
+    "keyword": "Spatial Planning",
+    "snippet": "Spatial planning is an integrated approach to managing the use and development of land and sea areas. It involves coordinating policies across different sectors (e.g., transport, housing, environment) to achieve more equitable, efficient, and sustainable distribution of activities."
+  },
+  {
+    "keyword": "Montevideo Environmental Law Programme",
+    "snippet": "The Montevideo Environmental Law Programme is a global initiative by the UN Environment Programme (UNEP) to enhance the capacity of countries to develop and implement effective national environmental law. It guides the development of international environmental legal frameworks."
+  },
+  {
+    "keyword": "Environmental Law",
+    "snippet": "Environmental law is the collection of treaties, statutes, regulations, and common laws that regulate the interaction of humanity and the natural environment. Its purpose is to protect the environment and manage natural resources, often through pollution control and conservation."
+  },
+  {
+    "keyword": "Sustainable Development Goal 11 (SDG 11)",
+    "snippet": "SDG 11: Sustainable Cities and Communities is one of the 17 Sustainable Development Goals, focused on making human settlements inclusive, safe, resilient, and sustainable. Key targets include housing, transport, air quality, waste management, and sustainable urbanization."
+  },
+  {
+    "keyword": "Climate Change and Cities",
+    "snippet": "Cities are highly vulnerable to climate change due to their density, critical infrastructure, and concentration of population and economic activity. They are also major contributors, making local government planning, mitigation, and adaptation strategies crucial for global climate efforts."
+  },
+  {
+    "keyword": "Environmental Issues",
+    "snippet": "Environmental issues are harmful effects of human activities on the biophysical environment. Key categories include pollution (air, water, land), resource depletion (water, fossil fuels), habitat destruction, and the impacts of climate change on biodiversity and human health."
+  },
+  {
+    "keyword": "Resource Efficiency",
+    "snippet": "Resource efficiency is the ability to produce more goods and services with less environmental impact by reducing the amount of natural resources consumed and minimizing waste throughout the entire life cycle of products and services."
+  },
+  {
+    "keyword": "Economic Development",
+    "snippet": "Economic development is the process by which a nation improves the economic, political, and social well-being of its people. Sustainable economic development aims to meet current needs without compromising the ability of future generations to meet theirs, integrating environmental concerns."
+  },
+  {
+    "keyword": "Environmental Sustainability",
+    "snippet": "Environmental sustainability is the ability of the environment to support a defined level of environmental quality and natural resource extraction rates indefinitely. It requires maintaining ecological balance and protecting natural capital to support human life and well-being long-term."
+  },
+  {
+    "keyword": "Sustainable Development Goals (SDGs)",
+    "snippet": "The Sustainable Development Goals (SDGs) are a collection of 17 global goals set by the UN in 2015 for the year 2030. They are a universal call to action to end poverty, protect the planet, and ensure peace and prosperity, with targets covering social, economic, and environmental issues."
+  },
+  {
+    "keyword": "Sustainable City",
+    "snippet": "A Sustainable City (or \"eco-city\") is a city designed with the consideration of the environmental impacts, aiming for minimal resource use, maximum energy efficiency, and a reduced carbon footprint, while providing a high quality of life for its residents."
+  },
+  {
+    "keyword": "Healthy Cities Initiative",
+    "snippet": "The Healthy Cities initiative by the WHO aims to place health high on the agenda of decision-makers in cities, emphasizing a holistic approach where environmental, social, and economic factors are integrated into urban planning to promote the health and well-being of all citizens."
+  },
+  {
+    "keyword": "Healthy Sustainable Urban Development Pathways",
+    "snippet": "Defining pathways to healthy sustainable urban development involves creating interdisciplinary frameworks that integrate public health goals with environmental sustainability and equity concerns. This requires policy and planning that go beyond simple greening to address social determinants of health."
+  },
+  {
+    "keyword": "Human Settlements",
+    "snippet": "Human Settlements encompasses the total community, including the people, their dwellings, and the surrounding infrastructure and environment. UN efforts focus on sustainable settlements through improved planning, housing, and access to basic services to address urbanization challenges."
+  },
+  {
+    "keyword": "Pathways to Sustainable Cities",
+    "snippet": "Pathways to Sustainable Cities involve strategic policy choices and implementation that prioritize integrated planning, low-carbon development, climate resilience, and social equity. Key areas include sustainable transport, renewable energy, and efficient resource use."
+  },
+  {
+    "keyword": "City Planning Policies for Health and Sustainability",
+    "snippet": "City planning policies are crucial levers for supporting health and sustainability. International comparisons highlight the importance of policies related to land-use mix, public transit, and density, showing a strong link between these indicators and positive health/environmental outcomes."
+  },
+  {
+    "keyword": "Healthy City Indicators (99 Indicators)",
+    "snippet": "A set of 99 healthy city indicators provides a comprehensive tool for urban planners and designers to assess and guide urban development towards better public health outcomes. These indicators cover domains like environment, lifestyle, socio-economic factors, and urban form."
+  },
+  {
+    "keyword": "Global Urban Environment and Health Index",
+    "snippet": "The Global Urban Environment and Health Index is an assessment tool designed to promote a healthy cities agenda by providing a measure of a city's performance across various environmental and health dimensions, facilitating evidence-based policy making."
+  },
+  {
+    "keyword": "Urban and Territorial Planning for Health Equity",
+    "snippet": "Urban and Territorial Planning (UTP) is essential for supporting a healthy planet and promoting health equity. UTP policies must be designed to address environmental injustices and ensure that urban development benefits all populations, especially the most vulnerable."
+  },
+  {
+    "keyword": "Healthy Settings Approach",
+    "snippet": "The Healthy Settings Approach, exemplified by the Healthy Cities movement, focuses on transforming the environmental and organizational context of places where people live, work, and play (e.g., schools, workplaces, communities) to promote health through participatory and holistic methods."
+  },
+  {
+    "keyword": "Global Regional Environmental Problems",
+    "snippet": "Global Regional Environmental Problems are diverse, varying significantly by geography. In developing regions, issues often include water scarcity and local pollution, while developed regions grapple more with legacy contamination, climate adaptation, and resource consumption rates."
+  },
+  {
+    "keyword": "Main Environmental Problems",
+    "snippet": "The Main Environmental Problems globally include, but are not limited to, deforestation, biodiversity loss, air and water pollution, soil degradation, and the anthropogenic acceleration of climate change. These are often interlinked with patterns of human development and consumption."
+  },
+  {
+    "keyword": "Heat Island Effect (EPA)",
+    "snippet": "The Heat Island Effect refers to urban and metropolitan areas that are significantly warmer than their surrounding rural areas due to human activities. EPA mitigation strategies include using cool roofs, increasing vegetation, and implementing reflective pavements to reduce air conditioning demand and air pollution."
+  },
+  {
+    "keyword": "Water Pollution",
+    "snippet": "Water pollution is the contamination of water bodies, usually as a result of human activities. It affects sources like rivers, lakes, oceans, and groundwater, often caused by industrial effluent, untreated sewage, and agricultural runoff, posing severe risks to aquatic life and human health."
+  },
+  {
+    "keyword": "Water Quality",
+    "snippet": "Water quality refers to the chemical, physical, and biological characteristics of water, usually in respect to its suitability for a particular purpose, such as drinking, swimming, or supporting aquatic ecosystems. Quality is assessed by testing for contaminants like pathogens and heavy metals."
+  }]

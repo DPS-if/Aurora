@@ -1,25 +1,37 @@
-from flask import Flask, request, jsonify
-import requests
 import os
+import flask
+import google.generativeai as genai
+import json
 
-app = Flask(__name__)
+app = flask.Flask(__name__)
 
-HF_TOKEN = os.environ["HF_API_KEY"]
-MODEL_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
+# Carrega base de conhecimento
+with open("data/knowledge_base.json", "r", encoding="utf-8") as f:
+    knowledge_base = json.load(f)
+
+# Configura Gemini
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel("gemini-pro")
+
+def gerar_resposta(problem):
+    # Gera contexto com base nos snippets
+    contexto = "\n".join([
+        f"{item['keyword']}: {item['snippet']}"
+        for item in knowledge_base
+    ])
+    prompt = (
+        f"Baseado no seguinte contexto:\n{contexto}\n\n"
+        f"Qual seria uma solução para o problema: \"{problem}\"?"
+    )
+    response = model.generate_content(prompt)
+    return response.text
 
 @app.route("/api/suggest", methods=["POST"])
-def sugerir():
-    dados = request.get_json()
-    prompt = dados.get("problem_text", "")
+def suggest():
+    data = flask.request.get_json()
+    problem = data.get("problem", "")
+    resposta = gerar_resposta(problem)
+    return flask.jsonify({"solution": resposta})
 
-    headers = {"Authorization": f"Bearer {HF_TOKEN}"}
-    payload = {"inputs": prompt}
-
-    try:
-        resposta = requests.post(MODEL_URL, headers=headers, json=payload)
-        resultado = resposta.json()
-        texto = resultado[0]["generated_text"] if isinstance(resultado, list) else "Erro na geração"
-        return jsonify({"solution": texto})
-    except Exception as e:
-        print("Erro Hugging Face:", e)
-        return jsonify({"solution": "Desculpe, ocorreu um erro na análise da IA."}), 500
+if __name__ == "__main__":
+    app.run()

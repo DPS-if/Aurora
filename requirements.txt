@@ -1,2 +1,4 @@
 flask
 requests
+google-generativeai
+transformers
