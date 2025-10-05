@@ -1,42 +1,48 @@
-import { Groq } from "groq-sdk";
+// api/aurora-resolution.js
+
+import { Groq } from 'groq-sdk';
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY
 });
 
+// This function should be the handler your server exposes
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+  if (req.method !== "POST") return res.status(405).json({ error: "Method Not Allowed" });
 
-  const { message } = req.body;
+  const { prompt } = req.body;
+  if (!prompt) return res.status(400).json({ error: "Prompt is missing" });
 
   try {
-    const completion = await groq.chat.completions.create({
+    const chatCompletion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       messages: [
         {
           role: "system",
-          content: `
-You are Aurora — a researcher and environmental specialist with deep knowledge in urban environmental issues, always linking your insights to sociology. 
-You must always respond in clear, academic, and fluent **English**, regardless of the user's language. 
-When asked to summarize, you must write around **10 lines** and finish with a **single keyword** that represents the main solution.
-`
+          content: `You are **Aurora**, a research specialist in urban environmental problems, with expertise in applied sociology. 
+Always and exclusively respond in **English**, regardless of the user's language. 
+Provide:
+1) A summary of approximately 10 lines about the topic the user submits;
+2) A concluding sentence featuring the main solution expressed in **one keyword**.
+Be clear, educational, and objective.`
+
         },
         {
           role: "user",
-          content: message
+          content: prompt
         }
       ],
-      temperature: 0.8,
+      temperature: 0.7,
       max_completion_tokens: 1024,
-      top_p: 1
+      top_p: 1,
+      stream: false
     });
 
-    const reply = completion.choices[0]?.message?.content || "No response.";
-    res.status(200).json({ reply });
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Internal server error." });
+    const text = chatCompletion.choices[0]?.message?.content || "No response";
+    res.status(200).json({ response: text }); // Note: 'resposta' translated to 'response'
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }
