@@ -1,20 +1,25 @@
 from flask import Flask, request, jsonify
-import google.generativeai as genai
+import requests
 import os
 
 app = Flask(__name__)
-genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
-model = genai.GenerativeModel("gemini-pro")  # Gemini 1.5 Pro
+HF_TOKEN = os.environ["HF_API_KEY"]
+MODEL_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2"
 
 @app.route("/api/suggest", methods=["POST"])
 def sugerir():
     dados = request.get_json()
     prompt = dados.get("problem_text", "")
 
+    headers = {"Authorization": f"Bearer {HF_TOKEN}"}
+    payload = {"inputs": prompt}
+
     try:
-        resposta = model.generate_content(prompt)
-        texto = resposta.text
+        resposta = requests.post(MODEL_URL, headers=headers, json=payload)
+        resultado = resposta.json()
+        texto = resultado[0]["generated_text"] if isinstance(resultado, list) else "Erro na geração"
         return jsonify({"solution": texto})
     except Exception as e:
+        print("Erro Hugging Face:", e)
         return jsonify({"solution": "Desculpe, ocorreu um erro na análise da IA."}), 500

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <button onclick="testAPI()">Testar IA</button>
+  <pre id="resposta"></pre>
+
+  <script>
+    async function testAPI() {
+      const res = await fetch("https://auroraia.vercel.app/api/suggest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ problem_text: "Minha cidade está muito quente e sem árvores." })
+      });
+      const data = await res.json();
+      document.getElementById("resposta").innerText = data.solution;
+    }
+  </script>
+</body>
+</html>
