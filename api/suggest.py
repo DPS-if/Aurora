@@ -4,10 +4,12 @@ import pandas as pd
 import google.generativeai as genai
 from http.server import BaseHTTPRequestHandler
 
-# Esta classe de handler já inclui a correção de CORS (do_OPTIONS)
+# Versão Final e Robusta da Aurora - Criada para Diagnóstico e Performance
+
 class handler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
+        # Lida com a permissão de CORS, essencial para a comunicação
         self.send_response(200, "ok")
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
@@ -15,97 +17,105 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_POST(self):
-        ai_answer = ""
+        # Onde a magia acontece
+        
+        # Bloco de segurança principal. Se qualquer coisa aqui dentro falhar,
+        # o erro será capturado e uma mensagem de erro será enviada.
         try:
-            # --- ETAPA 1: RECEBER E CONFIGURAR ---
-            print("INFO: Iniciando nova arquitetura da Aurora.")
-            content_length = int(self.headers['Content-Length'])
-            post_data = self.rfile.read(content_length)
-            user_input = json.loads(post_data.decode('utf-8'))
-            
-            # Extrai os dados do problema do utilizador
-            user_problem = user_input.get('problem_text', '')
-            user_city = user_input.get('city', 'Não especificada')
-            user_country = user_input.get('country', 'Não especificado')
+            # --- 1. CONFIGURAÇÃO E VALIDAÇÃO ---
+            print("[AURORA] Nova requisição recebida. Iniciando processo...")
 
-            # Configura as APIs
+            # Valida a chave de API do Gemini imediatamente
             GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
             if not GEMINI_API_KEY:
-                raise ValueError("Chave GEMINI_API_KEY não configurada na Vercel.")
+                raise ValueError("ERRO CRÍTICO: Chave GEMINI_API_KEY não foi encontrada nas Environment Variables da Vercel.")
+            
             genai.configure(api_key=GEMINI_API_KEY)
+            print("[AURORA] Chave API e Gemini configurados com sucesso.")
 
-            # Carrega a base de conhecimento
+            # Carrega a base de conhecimento (solutions.json)
             script_dir = os.path.dirname(__file__)
             json_path = os.path.join(script_dir, '..', 'solutions.json')
             with open(json_path, 'r', encoding='utf-8') as f:
                 solutions_data = json.load(f)
-            solutions_df = pd.DataFrame(solutions_data)
             
-            # --- MODELO 1: GEMINI COMO CLASSIFICADOR ---
-            print("INFO: Modelo 1 (Gemini-Classificador) em execução...")
+            # Valida se o JSON não está vazio
+            if not solutions_data:
+                raise ValueError("ERRO CRÍTICO: O ficheiro solutions.json está vazio ou mal formatado.")
             
-            # Cria uma lista de categorias para o Gemini escolher
-            category_list = solutions_df['Categoria'].tolist()
-            
-            classification_prompt = f"""
-            Analise o seguinte problema relatado por um cidadão: "{user_problem}".
-            Com base neste problema, qual das seguintes categorias é a mais relevante?
-            Responda APENAS com o nome exato da categoria da lista.
+            print(f"[AURORA] Base de conhecimento carregada com {len(solutions_data)} itens.")
 
-            Lista de Categorias:
-            {', '.join(category_list)}
-            """
+            # --- 2. EXTRAÇÃO DOS DADOS DO UTILIZADOR ---
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            user_input = json.loads(post_data.decode('utf-8'))
             
-            classifier_model = genai.GenerativeModel('gemini-pro')
-            classification_response = classifier_model.generate_content(classification_prompt)
-            detected_category = classification_response.text.strip()
-            print(f"✅ Modelo 1: Categoria detectada -> {detected_category}")
+            user_problem = user_input.get('problem_text', '')
+            # Extrai cidade e país do problema, caso existam no prompt do index.html
+            context_parts = user_problem.split("relata o seguinte problema:")
+            context = context_parts[0].strip() if len(context_parts) > 1 else "Local não especificado"
 
-            # Encontra a solução correspondente na nossa base de dados
-            matching_solutions = solutions_df[solutions_df['Categoria'] == detected_category]
-            if matching_solutions.empty:
-                raise ValueError(f"A categoria '{detected_category}' não foi encontrada no ficheiro solutions.json")
+            # --- 3. CLASSIFICAÇÃO INTERNA (USANDO PALAVRAS-CHAVE) ---
+            # Abordagem mais simples e robusta que usar um modelo externo para classificar
+            best_match = None
+            highest_score = 0
+            for solution in solutions_data:
+                score = 0
+                for keyword in solution.get('Keywords', '').split(','):
+                    if keyword.strip() in user_problem.lower():
+                        score += 1
+                if score > highest_score:
+                    highest_score = score
+                    best_match = solution
             
-            best_solution = matching_solutions.iloc[0].to_dict()
+            if not best_match:
+                raise ValueError("Não foi encontrada nenhuma solução correspondente na base de conhecimento para o problema descrito.")
+            
+            print(f"[AURORA] Problema classificado na categoria: {best_match['Categoria']}")
 
-            # --- MODELO 2: GEMINI COMO PESQUISADORA ESPECIALISTA ---
-            print("INFO: Modelo 2 (Gemini-Pesquisadora) em execução...")
-
-            # Define a personalidade da Aurora (System Instruction)
+            # --- 4. GERAÇÃO DA RESPOSTA COM O GEMINI ---
+            
+            # A personalidade da Aurora, definida como uma instrução de sistema
             system_instruction = "Você é a Aurora, uma IA pesquisadora especialista em mudanças climáticas e desenvolvimento urbano sustentável. Seja sempre simpática, direta e apresente os dados com a confiança de uma académica. Use uma linguagem clara, mas não simplifique excessivamente os conceitos."
             
-            # Refina o prompt do utilizador para uma resposta de alta qualidade
+            # O prompt final, refinado para uma resposta de alta qualidade
             final_prompt = f"""
-            **Problema Reportado:**
-            Na cidade de **{user_city}, {user_country}**, foi identificado o seguinte desafio: "{user_problem}".
+            **Contexto da Análise:**
+            - **Local:** {context}
+            - **Problema Apresentado:** {user_problem}
 
-            **Sua Tarefa:**
-            Com base no texto-base da sua fonte de conhecimento, elabore uma resposta que seja breve, mas aprofundada.
+            **Sua Missão como Pesquisadora:**
+            Com base **exclusivamente** no texto académico da sua fonte de conhecimento abaixo, elabore uma resposta aprofundada para o problema apresentado.
 
-            **Fonte de Conhecimento (use esta fonte como base principal da sua resposta):**
-            - **Título:** {best_solution['Categoria']}
-            - **Texto-Base:** {best_solution['Texto_Base']}
+            **Fonte de Conhecimento (Texto-Base):**
+            - **Título do Conceito:** {best_match['Categoria']}
+            - **Texto:** "{best_match['Texto_Base']}"
 
-            **Estrutura da Resposta:**
-            1.  **Saudação e Contextualização:** Comece por se dirigir ao cidadão e enquadrar o problema dele dentro do conceito técnico do seu Texto-Base.
-            2.  **Análise Aprofundada:** Explique o conceito do Texto-Base em detalhe. Descreva o porquê de ser relevante para o problema apresentado.
-            3.  **Conclusão e Citação:** Termine com uma breve conclusão e cite a sua fonte de forma clara.
+            **Estrutura Obrigatória da Resposta:**
+            1.  **Diagnóstico:** Comece por enquadrar o problema do cidadão dentro do conceito técnico do seu Texto-Base.
+            2.  **Análise Detalhada:** Elabore sobre a definição e a importância do conceito, sintetizando as informações do Texto-Base numa explicação original e coesa.
+            3.  **Conclusão e Fonte:** Apresente uma breve conclusão e, numa nova linha no final, cite a sua fonte da seguinte forma: "Fonte da Análise: {best_match['Fonte']}".
             """
             
-            researcher_model = genai.GenerativeModel('gemini-pro', system_instruction=system_instruction)
-            final_response = researcher_model.generate_content(final_prompt)
-            ai_answer = final_response.text
+            print("[AURORA] A enviar o prompt final para o modelo Gemini...")
+            model = genai.GenerativeModel('gemini-pro', system_instruction=system_instruction)
+            response = model.generate_content(final_prompt)
+            ai_answer = response.text
+            print("[AURORA] Resposta gerada com sucesso pelo Gemini.")
 
         except Exception as e:
-            # Se qualquer etapa falhar, gera uma resposta de erro
-            print(f"!!! ERRO CRÍTICO NA EXECUÇÃO: {e} !!!")
-            ai_answer = "Peço desculpa, mas encontrei um problema ao processar a sua análise. A nossa equipa técnica já foi notificada. Por favor, tente novamente mais tarde."
+            # Se qualquer passo acima falhar, este bloco será executado
+            print(f"!!!!!!!!!!!!!! ERRO CRÍTICO NO SERVIDOR !!!!!!!!!!!!!!")
+            print(f"TIPO DE ERRO: {type(e).__name__}")
+            print(f"MENSAGEM DE ERRO DETALHADA: {e}")
+            print(f"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            ai_answer = "Peço desculpa, mas encontrei um problema interno ao processar a sua análise. A nossa equipa técnica já foi notificada do erro exato. Por favor, tente novamente mais tarde."
 
-        # Envia a resposta final
+        # --- 5. ENVIO DA RESPOSTA FINAL ---
         self.send_response(200)
         self.send_header('Content-type', 'application/json; charset=utf-8')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-        response = json.dumps({'solution': ai_answer})
-        self.wfile.write(response.encode('utf-8'))
-        return
+        response_data = json.dumps({'solution': ai_answer})
+        self.wfile.write(response_data.encode('utf-8'))
+        print("[AURORA] Resposta enviada ao utilizador. Processo concluído.")
