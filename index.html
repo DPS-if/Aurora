@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Aurora v7</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <h1>Aurora v7 - IA Generativa</h1>
@@ -13,27 +14,27 @@
     <script>
         const API_URL = window.location.origin + "/api/generate";
         async function gerar() {
-          const prompt = document.getElementById("prompt").value;
-          const resDiv = document.getElementById("response");
-          resDiv.innerText = "Gerando resposta...";
-          try {
-            const res = await fetch(API_URL, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ prompt })
-            });
-            const text = await res.text();
-            let data;
+            const prompt = document.getElementById("prompt").value;
+            const resDiv = document.getElementById("response");
+            resDiv.innerText = "Gerando resposta...";
             try {
-              data = JSON.parse(text);
-            } catch {
-              throw new Error(`Resposta inválida do servidor:\n${text || "[vazio]"}`);
+                const res = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ prompt })
+                });
+                const text = await res.text();
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch {
+                    throw new Error(`Resposta inválida do servidor: ${text || "[vazio]"}`);
+                }
+                if (!res.ok) throw new Error(data.error || `HTTP ${res.status}: ${res.statusText}`);
+                resDiv.innerText = data.response || "Sem resposta.";
+            } catch (err) {
+                resDiv.innerText = `⚠️ Erro: ${err.message}`;
             }
-            if (!res.ok) throw new Error(data.error || "Erro desconhecido");
-            resDiv.innerText = data.response || "Sem resposta.";
-          } catch (err) {
-            resDiv.innerText = "⚠️ " + err.message;
-          }
         }
     </script>
 </body>

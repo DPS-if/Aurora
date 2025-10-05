@@ -1,4 +1,3 @@
-# rag.py
 import json
 import os
 from transformers import pipeline
@@ -27,6 +26,7 @@ def gerar_resposta(prompt: str) -> str:
             if prompt.lower() in item["description"].lower()
         ][:3]
         contexto = "\n".join(relacionados) if relacionados else "Nenhum dado relevante encontrado."
+        print(f"DEBUG: Contexto gerado: {contexto[:100]}...")
 
         entrada = f"Contexto: {contexto}\nPergunta: {prompt}\nResposta:"
         
@@ -38,7 +38,7 @@ def gerar_resposta(prompt: str) -> str:
             do_sample=True,
             pad_token_id=generator.tokenizer.eos_token_id
         )
-        texto = response[0]["generated_text"][len(entrada):].strip()  # Remove a entrada da resposta
+        texto = response[0]["generated_text"][len(entrada):].strip()
         print(f"DEBUG: Resposta gerada: {texto}")
         return texto or "[Erro: resposta vazia do modelo]"
     except Exception as e:
