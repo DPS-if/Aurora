@@ -3,12 +3,11 @@ import json
 import google.generativeai as genai
 from http.server import BaseHTTPRequestHandler
 
-# Versão Final com o Nome do Modelo Corrigido e Arquitetura Robusta
+# Versão Definitiva com o Nome do Modelo Mais Recente e Estável
 
 class handler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
-        # Lida com a permissão de CORS, essencial para a comunicação
         self.send_response(200, "ok")
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
@@ -41,10 +40,8 @@ class handler(BaseHTTPRequestHandler):
 
             # --- 3. UMA ÚNICA CHAMADA PODEROSA AO GEMINI ---
             
-            # A personalidade da Aurora, definida como uma instrução de sistema
             system_instruction = "Você é a Aurora, uma IA pesquisadora especialista em mudanças climáticas e desenvolvimento urbano sustentável. Seja sempre simpática, direta e apresente os dados com a confiança de uma académica. Use uma linguagem clara, mas não simplifique excessivamente os conceitos."
             
-            # O prompt final e direto
             final_prompt = f"""
             **Sua Missão como Pesquisadora:**
             Você recebeu um problema de um cidadão e uma base de conhecimento em formato JSON. Siga estas três etapas:
@@ -67,9 +64,9 @@ class handler(BaseHTTPRequestHandler):
             ---
             """
             
-            # <<< A CORREÇÃO FINAL ESTÁ AQUI >>>
-            # Usando o nome do modelo estável e correto: 'gemini-1.0-pro'
-            model = genai.GenerativeModel('gemini-1.0-pro', system_instruction=system_instruction)
+            # <<< A CORREÇÃO FINAL E DEFINITIVA ESTÁ AQUI >>>
+            # Usando o nome do modelo mais recente, rápido e estável
+            model = genai.GenerativeModel('gemini-1.5-flash-latest', system_instruction=system_instruction)
             
             response = model.generate_content(final_prompt)
             ai_answer = response.text
@@ -81,7 +78,7 @@ class handler(BaseHTTPRequestHandler):
 
         # --- 4. ENVIO DA RESPOSTA FINAL (OU DO ERRO) ---
         self.send_response(200)
-        self.send_header('Content-type', 'application/json; charset=utf-8')
+        self.send_header('Content-type', 'application/json; charset-utf-8')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         response_data = json.dumps({'solution': ai_answer})
