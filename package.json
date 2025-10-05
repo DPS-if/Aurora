@@ -1,6 +1,6 @@
 {
   "name": "urbanminds-ai-backend",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "API backend for Groq integration.",
   "type": "module",
   "dependencies": {
