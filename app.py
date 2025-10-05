@@ -5,6 +5,12 @@ import os
 app = Flask(__name__)
 
 @app.route("/api/generate", methods=["POST"])
+@app.route("/api/generate", methods=["GET"])
+def generate_get():
+    return jsonify({
+        "message": "Use POST para enviar o prompt.",
+        "example": {"prompt": "Explique como os satélites observam o clima."}
+    }), 405
 def generate():
     try:
         data = request.get_json()
