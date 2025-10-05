@@ -1,160 +1,233 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aurora - NASA Space Chat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    h1 {
-      color: #00ffff;
-      text-shadow: 0 0 10px #00ffff;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    #chat-box {
-      width: 100%;
-      max-width: 700px;
-      height: 450px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 15px;
-      padding: 15px;
-      overflow-y: auto;
-      box-shadow: 0 0 20px rgba(0,255,255,0.3);
-      margin-bottom: 15px;
-    }
-
-    .msg {
-      margin: 10px 0;
-      padding: 12px 15px;
-      border-radius: 12px;
-      line-height: 1.5;
-      max-width: 90%;
-      word-wrap: break-word;
-    }
-
-    .user {
-      background: rgba(0, 170, 255, 0.3);
-      color: #00e0ff;
-      align-self: flex-end;
-      text-align: right;
-    }
-
-    .aurora {
-      background: rgba(0, 255, 200, 0.2);
-      border-left: 4px solid #00fff0;
-      color: #e0fff9;
-      align-self: flex-start;
-      text-align: left;
-    }
-
-    #input-area {
-      display: flex;
-      width: 100%;
-      max-width: 700px;
-    }
-
-    input {
-      flex: 1;
-      padding: 12px;
-      border-radius: 12px 0 0 12px;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-    }
-
-    button {
-      padding: 12px 20px;
-      border-radius: 0 12px 12px 0;
-      border: none;
-      background: #00fff0;
-      color: #003333;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    button:hover {
-      background: #00e0d0;
-    }
-
-    .keyword {
-      margin-top: 10px;
-      font-weight: bold;
-      color: #00ffcc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanMinds - Sustainable Urban Planning</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>🌌 Aurora - NASA Space Chat</h1>
-  <div id="chat-box"></div>
+    <div class="container">
+        
+        <header class="main-header">
+            <div class="logo">
+                <h1>Urban<span class="minds">Minds</span></h1>
+                <p>sustainable urban planning</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li> 
+                    <li><a href="#map">Interact Map</a></li>
+                    <li><a href="#feedback">Aurora</a></li>
+                    <li><a href="#team">Team Members</a></li>
+                </ul>
+            </nav>
+        </header>
 
-  <div id="input-area">
-    <input id="user-input" type="text" placeholder="Digite seu problema ambiental urbano..." />
-    <button onclick="enviar()">Enviar</button>
-  </div>
+        <main class="main-content-wrapper"> 
+        
+            <section id="home" class="content-area home-page">
+                <div class="text-content">
+                    <h2>About the project:</h2>
+                    
+                    <section class="text-box box-1">
+                        <p>We all know about the vulnerabilities in ecosystems and natural resources around the world. This problem happens due to environmental issues, such as flooding, extreme temperatures, limitless exploration of Earth resources, among other examples. </p>
+                    </section>
 
-  <script>
-    const chatBox = document.getElementById("chat-box");
-    const input = document.getElementById("user-input");
+                    <section class="text-box box-2">
+                        <p>To help city leaders and local parks departments with resolving these issues, we created a website that uses a map with NASA Earth Science data and shows the best method for sustainable urban development in the location the user selects (only a few cities for now), considering improvements in the residents quality of life while in a fast-growing and sustainable city. </p>
+                    </section>
 
-    async function enviar() {
-      const texto = input.value.trim();
-      if (!texto) return;
+                    <section class="text-box box-3">
+                        <p>With this plan, city leaders can create better eco-friendly development ideas and local parks departments can help with managing the natural resources in areas that will be involved in urban growth. In addition, the website includes a section where users can report problems in their local area. Based on this information, the site provides possible solutions, intending to have information about specific places, supporting even more with local sustainable development.</p>
+                    </section>
+                </div>
 
-      addMensagem("Você", texto, "user");
-      input.value = "";
-      addMensagem("Aurora", "Analisando...", "aurora");
+                <div class="image-section">
+                    <div class="image-wrapper">
+                        <img src="./imgs/cidade.png" alt="Skyline da cidade" class="city-image"> 
+                        <div class="logo-overlay">
+                            <img src="./imgs/logo_nasa_space-apps.png" alt="Space Apps Challenge" style="width: 100px;"> 
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="map" class="content-area map-page">
+                <div class="map-header">
+                    <h2 class="map-title">Environmental consultation map</h2>
+                    <p class="map-description">
+                        Choose one of the indicators and the region where you want to have a consultation.
+                    </p>
+                </div>
+                <div class="map-grid">
+                    <div class="map-area"><a href="./mapainterativo.html"><img src="./imgs/demonstracao_mapa.png" alt=""></a>
+                    <div class="try-it-button"><a href="./mapainterativo.html">Try It!</a></div>
+                    </div> 
 
-      try {
-        const res = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: texto })
+                    <div class="indicators-section">
+                        
+                        <div class="indicator-box active-indicator">
+                            <p class="indicator-label">Vegetation Index:</p>
+                            <div class="indicator-details">
+                                <img src="./imgs/leaves.png" alt="Leaf Icon" class="icon">
+                                <p class="indicator-value">This parameter measures the amount of green vegetation per area. The index used is the Normalized Difference Vegetation Index (NDVI), which is calculated as the difference between near-infrared and red reflectance divided by their sum.</p>
+                            </div>
+                        </div>
+
+                        <div class="indicator-box">
+                            <p class="indicator-label">Air pollution:</p>
+                            <div class="indicator-details">
+                                <img src="./imgs/wind-sign.png" alt="Wind Icon" class="icon">
+                                <p class="indicator-value">This category provides information about air quality, including data such as the chemical measurement of nitrogen dioxide concentration per square meter.</p>
+                            </div>
+                        </div>
+
+                        <div class="indicator-box">
+                            <p class="indicator-label">Surface temperature:</p>
+                            <div class="indicator-details">
+                                <img src="./imgs/termometer.png" alt="Thermometer Icon" class="icon">
+                                <p class="indicator-value">It displays the temperature, in degrees Celsius, of the location selected by the user among the predefined points.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="feedback" class="content-area feedback-page">
+                <div class="feedback-grid">
+                    
+                    <div class="input-section">
+                        <p class="intro-text">
+                            <span><img src="./imgs/logo_aurora.PNG" alt="Aurora Logo" class="aurora-logo"></span>
+                            Please provide information about your city and any Infrastructure issue so that we can create a resolution using our AI, Aurora.
+                        </p>
+
+                        <label for="location" class="input-label">Location (City, Country):</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="location" class="text-input">
+                        </div>
+
+                        <label for="issue" class="input-label">Infrastructure Issue:</label>
+                        <div class="input-wrapper large">
+                            <textarea id="issue" class="text-input textarea-input"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="resolution-section">
+                        <label for="resolution" class="input-label">Resolution:</label>
+                        <textarea id="resolution" class="resolution-input-field" readonly></textarea>
+                        
+                        <button id="send-analysis-button" class="send-button">SEND!</button>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="team" class="content-area team-page">
+                <div class="team-header">
+                    <h2>Our Team!</h2>
+                    <div class="flag-placeholder"></div> 
+                </div>
+
+                <div class="team-grid">
+                    
+                    <div class="team-member-card">
+                        <div class="profile-wrapper">
+                            <img src="./imgs/members/diego_avatar.jpg" alt="Diego Pereira" class="profile-photo">
+                            <div class="indicator-icon flag-mg"></div> </div>
+                        <div class="member-info">
+                            <p class="member-name">Diego Pereira</p>
+                            <p class="member-name-surname">Stoque</p>
+                            <p class="member-function">Developer</P>
+                        </div>
+                    </div>
+
+                    <div class="team-member-card">
+                        <div class="profile-wrapper">
+                            <img src="./imgs/members/fellipi_avatar.jpeg" alt="Fellipe Gabriel" class="profile-photo">
+                            <div class="indicator-icon flag-go"></div> </div>
+                        <div class="member-info">
+                            <p class="member-name">Fellipe Gabriel</p>
+                            <p class="member-name-surname">Santiago De Oliveira</p>
+                            <P class="member-function">Designer</P>
+                        </div>
+                    </div>
+
+                    <div class="team-member-card otavio-card">
+                        <div class="profile-wrapper otavio-profile">
+                            <img src="./imgs/members/otavio_avatar.jpeg" alt="Otávio Rodrigues" class="profile-photo">
+                            <div class="indicator-icon flag-mg"></div> </div>
+                        <div class="member-info">
+                            <p class="member-name">Otávio Rodrigues</p>
+                            <p class="member-name-surname">de Oliveira</p>
+                            <P class="member-function">Developer</P>
+                        </div>
+                    </div>
+
+                    <div class="team-member-card">
+                        <div class="profile-wrapper">
+                            <img src="./imgs/members/emmily_avatar.png" alt="Emmily Vitória" class="profile-photo">
+                            <div class="indicator-icon flag-go"></div> </div>
+                        <div class="member-info">
+                            <p class="member-name">Emmily Vitória</p>
+                            <p class="member-name-surname">Gonçalves Silva Freitas</p>
+                            <P class="member-function">Designer</P>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="team-member-card">
+                        <div class="profile-wrapper">
+                            <img src="./imgs/members/mateus_avatar.jpeg" alt="Mateus Amaral" class="profile-photo">
+                            <div class="indicator-icon flag-mg"></div> </div>
+                        <div class="member-info">
+                            <p class="member-name">Mateus Amaral</p>
+                            <p class="member-name-surname">Maciel</p>
+                            <P class="member-function">Copywriter</P>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Seleciona todas as seções (as âncoras de destino)
+        const sections = document.querySelectorAll('.content-area');
+        // Seleciona todos os links de navegação
+        const navLinks = document.querySelectorAll('.main-nav a');
+        // ... (resto da lógica do Intersection Observer) ...
+        const options = {
+            root: null, // viewport
+            rootMargin: "-50% 0px -50% 0px", // 50% de margem no topo e na base
+            threshold: 0 // não precisa de limite
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    const activeLink = document.querySelector(`.main-nav a[href="#${sectionId}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        }, options);
+
+        sections.forEach(section => {
+            observer.observe(section);
         });
-        const data = await res.json();
-        chatBox.lastElementChild.remove(); // remove "Analisando..."
+    });
+</script>
 
-        // Separar resumo e palavra-chave
-        let resposta = data.resposta;
-        let partes = resposta.split("Solução principal:");
-        let resumo = partes[0]?.trim() || "";
-        let keyword = partes[1]?.trim() || "";
+<script src="./aurora.js"></script> 
 
-        addMensagem("Aurora", resumo, "aurora", keyword);
-
-      } catch (err) {
-        chatBox.lastElementChild.remove();
-        addMensagem("Aurora", "❌ Erro ao conectar com a IA.", "aurora");
-      }
-    }
-
-    function addMensagem(user, text, tipo, keyword = "") {
-      const div = document.createElement("div");
-      div.className = `msg ${tipo}`;
-      div.innerHTML = `<strong>${user}:</strong><br>${text}`;
-      if (keyword) {
-        const kw = document.createElement("div");
-        kw.className = "keyword";
-        kw.textContent = `💡 Solução principal: ${keyword}`;
-        div.appendChild(kw);
-      }
-      chatBox.appendChild(div);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-  </script>
 </body>
 </html>

@@ -1,5 +1,9 @@
 {
+  "name": "urbanminds-ai-backend",
+  "version": "1.0.0",
+  "description": "API backend for Groq integration.",
+  "type": "module",
   "dependencies": {
-    "groq-sdk": "^0.33.0"
+    "groq-sdk": "^0.10.1" 
   }
 }

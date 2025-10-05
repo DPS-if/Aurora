@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrbanMinds - Análise Urbana com Dados da NASA</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        #map { height: calc(100vh - 80px); }
+        .leaflet-container { background: #1a202c; }
+
+        /* --- ESTILO DOS POPUPS DETALHADOS --- */
+        .leaflet-popup-content-wrapper { border-radius: 8px; background: #fff; box-shadow: 0 4px_12px rgba(0,0,0,0.15); }
+        .leaflet-popup-content { font-size: 14px; line-height: 1.6; min-width: 280px; margin: 18px 24px; }
+        .popup-title { font-weight: 700; font-size: 18px; color: #1e3a8a; margin-bottom: 12px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+        .popup-metric { margin-bottom: 12px; }
+        .popup-metric-title { font-weight: 600; color: #374151; display: block; }
+        .popup-metric-value { font-weight: 400; color: #1f2937; }
+        .popup-metric-analysis { font-size: 13px; color: #6b7280; font-style: italic; margin-top: 2px; }
+        .popup-footer { border-top: 1px solid #e5e7eb; padding-top: 8px; margin-top: 12px; font-size: 11px; color: #9ca3af; text-align: center; }
+
+        /* --- ESTILOS DA LEGENDA E MARCADORES (sem alteração) --- */
+        .info.legend { padding: 12px; background: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.2); border-radius: 8px; width: 200px; line-height: 18px; }
+        .legend-title { font-weight: 700; font-size: 14px; margin-bottom: 8px; text-align: center; color: #111827; }
+        .legend-gradient { height: 10px; border-radius: 5px; margin-bottom: 5px; }
+        .legend-labels { display: flex; justify-content: space-between; font-size: 12px; color: #4b5563; }
+        .legend-section { margin-top: 15px; border-top: 1px solid #e5e7eb; padding-top: 10px; }
+        .legend-marker-item { display: flex; align-items: center; margin-top: 5px; font-size: 12px; color: #4b5563; }
+        .legend-marker-icon { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; border: 1px solid rgba(0,0,0,0.5); }
+        .icon-park { background-color: #22c55e; }
+        .icon-urban { background-color: #6b7280; }
+        .custom-div-icon { border-radius: 50%; width: 16px !important; height: 16px !important; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5); transition: transform 0.2s ease-in-out; }
+        .custom-div-icon:hover { transform: scale(1.2); }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <header class="bg-white shadow-md h-20 flex items-center justify-between px-6 z-50">
+        <h1 class="text-3xl font-bold text-blue-600"><a href="../index.html"><img src="./logo_Urbanminds.PNG" style="width: 300px; margin-bottom: 25px;"></a></h1>
+        <p class="text-slate-600 text-center">Explore a saúde da vegetação e pontos de análise em cidades globais.</p>
+    </header>
+
+    <main><div id="map"></div></main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
