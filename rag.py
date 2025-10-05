@@ -1,17 +1,18 @@
 # rag.py
 import json
 import os
-import google.generativeai as genai
+from transformers import pipeline
 
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
-print(f"DEBUG: GOOGLE_API_KEY configurada: {'[set]' if GOOGLE_API_KEY else '[vazia]'}")
-genai.configure(api_key=GOOGLE_API_KEY)
+# Carrega o modelo uma vez (cache no Hugging Face Hub)
+print("DEBUG: Carregando modelo DistilGPT-2...")
+generator = pipeline("text-generation", model="distilgpt2", device=-1)  # device=-1 para CPU
+print("DEBUG: Modelo carregado com sucesso!")
 
 def carregar_base():
     caminho = os.path.join("data", "nasa_dataset.json")
     try:
         with open(caminho, "r", encoding="utf-8") as f:
-            print("DEBUG: Base de dados carregada com sucesso")
+            print("DEBUG: Base de dados carregada")
             return json.load(f)
     except Exception as e:
         print(f"DEBUG: Erro ao carregar base: {e}")
@@ -26,20 +27,20 @@ def gerar_resposta(prompt: str) -> str:
             if prompt.lower() in item["description"].lower()
         ][:3]
         contexto = "\n".join(relacionados) if relacionados else "Nenhum dado relevante encontrado."
-        print(f"DEBUG: Contexto gerado: {contexto[:100]}...")
 
-        entrada = f"Base de dados:\n{contexto}\n\nPergunta: {prompt}"
-
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(
+        entrada = f"Contexto: {contexto}\nPergunta: {prompt}\nResposta:"
+        
+        # Gera texto com o modelo local
+        response = generator(
             entrada,
-            generation_config={
-                "max_output_tokens": 200,
-                "temperature": 0.7
-            }
+            max_new_tokens=200,
+            temperature=0.7,
+            do_sample=True,
+            pad_token_id=generator.tokenizer.eos_token_id
         )
-        print(f"DEBUG: Resposta do Gemini: {response.text}")
-        return response.text or "[Erro: resposta vazia do modelo]"
+        texto = response[0]["generated_text"][len(entrada):].strip()  # Remove a entrada da resposta
+        print(f"DEBUG: Resposta gerada: {texto}")
+        return texto or "[Erro: resposta vazia do modelo]"
     except Exception as e:
-        print(f"DEBUG: Erro no gerar_resposta: {e}")
+        print(f"DEBUG: Erro em gerar_resposta: {e}")
         return f"[Erro ao gerar resposta: {e}]"
