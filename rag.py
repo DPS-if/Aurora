@@ -3,7 +3,7 @@ import os
 from huggingface_hub import InferenceClient
 
 HF_TOKEN = os.getenv("HF_TOKEN", "")
-MODEL_ID = os.getenv("MODEL_ID", "mistralai/Mistral-7B-Instruct-v0.1")
+MODEL_ID = "mistralai/Mixtral-8x7B-Instruct-v0.1"
 
 client = InferenceClient(token=HF_TOKEN)
 
@@ -21,7 +21,6 @@ def gerar_resposta(prompt: str) -> str:
     ][:3]
 
     contexto = "\n".join(relacionados) if relacionados else "Nenhum dado relevante encontrado."
-
     entrada = f"Base de dados:\n{contexto}\n\nPergunta: {prompt}"
 
     try:
@@ -33,4 +32,6 @@ def gerar_resposta(prompt: str) -> str:
         )
         return resposta
     except Exception as e:
+        print("❌ Erro na geração:", e)
         return f"[Erro ao gerar resposta: {e}]"
+
